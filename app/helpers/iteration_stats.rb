@@ -35,6 +35,7 @@ class IterationStats
     stories = { :done      => ArrayOfStories.new( iter.stories.all(:current_state => 'accepted' ) ),
                 :wip       => ArrayOfStories.new( iter.stories.all(:current_state => 'started'  ) + 
                                                   iter.stories.all(:current_state => 'finished' ) + 
+                                                  iter.stories.all(:current_state => 'delivered' ) + 
                                                   iter.stories.all(:current_state => 'rejected' ) ),
                 :scheduled => ArrayOfStories.new( iter.stories.all(:current_state => 'unstarted') ) }
 

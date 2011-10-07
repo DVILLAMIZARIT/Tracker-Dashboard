@@ -1,15 +1,5 @@
 #!/usr/bin/env ruby
 
-class String
-  def left_justify(total_length)
-    padding_length = total_length - self.length
-    padding_length.times do
-      insert(-1, " ")
-    end
-    self
-  end
-end
-
 def zero_if_nil_or_negative(x)
   if x.nil?
     return 0
