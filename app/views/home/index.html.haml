@@ -17,9 +17,9 @@
       %tr
         %td(style='text-align:right;')
         %td
-          You can find your Tracker API token at the bottom of your 
-          = link_to 'Profile Page', 'https://www.pivotaltracker.com/profile'
-          .  You can request one if you don't have one
+          = surround 'You can find your Tracker API token at the bottom of your ', '.' do
+            = link_to 'Profile Page', 'https://www.pivotaltracker.com/profile'
+          You can request one if you don't have one
       %tr
         %td(style='text-align:right;')
           Project name
