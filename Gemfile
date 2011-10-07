@@ -7,9 +7,10 @@ gem 'rack', '1.3.3'
 gem 'bson_ext'
 gem 'rails_config'
 
-gem 'sqlite3'
-gem 'sqlite3-ruby', :require => 'sqlite3'
+#gem 'sqlite3'
+#gem 'sqlite3-ruby', :require => 'sqlite3'
   #gem 'mysql2'
+gem 'pg'
 
 gem 'haml'
 gem 'sass'
@@ -20,6 +21,8 @@ gem 'rails3-jquery-autocomplete'
 gem 'simple_form'
 
 gem 'pivotal-tracker', '0.4.1', :git => "git://github.com/jsmestad/pivotal-tracker.git"
+
+gem 'heroku'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
