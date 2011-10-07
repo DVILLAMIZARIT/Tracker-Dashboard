@@ -11,7 +11,12 @@
     %table(style='width:400px;')
       %tr
         %td(style='text-align:right;')
-          API Token
+          Project&nbsp;name
+        %td
+          %input{:type=>"text", :name=>"project_name", :value=>"Casebook Deux"}
+      %tr
+        %td(style='text-align:right;')
+          API&nbsp;Token
         %td
           %input{:type=>"text", :name=>"tracker_api_key"}
       %tr
@@ -19,12 +24,7 @@
         %td
           = surround 'You can find your Tracker API token at the bottom of your ', '.' do
             = link_to 'Profile Page', 'https://www.pivotaltracker.com/profile'
-          You can request one if you don't have one
-      %tr
-        %td(style='text-align:right;')
-          Project name
-        %td
-          %input{:type=>"text", :name=>"project_name", :value=>"Casebook Deux"}
+          You can request one if you don't have one.
       %tr
         %td
         %td
