@@ -13,10 +13,10 @@ td.track {
 }
 
 td.track p {
+  white-space: nowrap;
   margin: 0;
   padding: 0;
   height: 18px;
-  width: 100%;
   text-align: center;
 }
 
