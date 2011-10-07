@@ -7,11 +7,6 @@ gem 'rack', '1.3.3'
 gem 'bson_ext'
 gem 'rails_config'
 
-#gem 'sqlite3'
-#gem 'sqlite3-ruby', :require => 'sqlite3'
-  #gem 'mysql2'
-gem 'pg'
-
 gem 'haml'
 gem 'sass'
 
@@ -39,7 +34,14 @@ group :test do
 end
 
 group :development, :test do
+
+  gem 'sqlite3'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
   #gem 'ruby-debug19'
   gem 'haml-rails'
   gem 'faker'
+end
+
+group :production do
+  gem 'pg'
 end
