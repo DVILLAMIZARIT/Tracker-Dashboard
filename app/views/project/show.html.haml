@@ -1,0 +1,91 @@
+%h1
+  Tracker Project Dasbhoard:
+  = @project_name 
+%table
+  %tr
+    %td.track
+      %p.track Track
+    
+      %p.label
+      %p.budget Budget
+    
+      %p.done Done
+      %p.wip WIP
+      %p.scheduled Scheduled
+    
+      %p.unplanned Blocked
+      %p.unplanned Unplanned
+      %p.unmet_reqs Unmet Requirements
+    - @iter_stats.all_tracks.each do |track|
+      %td.track
+        %p.track= track.name
+    
+        %p.label
+          %span.stories Stories
+          %span.points Points
+        %p.budget
+          %span.stories= track.budget[:stories]
+          %span.points=  track.budget[:points]
+     
+        %p.done
+          %span.stories= track.stories[:done].count
+          %span.points= link_to track.stories[:done].points, "#" + String(track.name) + "_done"
+        %p.wip
+          %span.stories= track.stories[:wip].count
+          %span.points= link_to track.stories[:wip].points, "#" + String(track.name) + "_wip"
+        %p.scheduled
+          %span.stories= track.stories[:scheduled].count
+          %span.points= link_to track.stories[:scheduled].points, "#" + String(track.name) + "_scheduled"
+
+        %p.blocked
+          %span.stories= track.stories[:blocked].count
+          %span.points= link_to track.stories[:blocked].points, "#" + String(track.name) + "_blocked"
+        %p.unplanned
+          %span.stories= track.stories[:unplanned].count
+          %span.points= link_to track.stories[:unplanned].points, "#" + String(track.name) + "_unplanned"
+        %p.unmet_reqs
+          %span.stories= track.stories[:unmet_reqs].count
+          %span.points= link_to track.stories[:unmet_reqs].points, "#" + String(track.name) + "_unmet_reqs"
+
+
+- @iter_stats.all_tracks.each do |track|
+  - track.stories.each do |story_type, cur_stories|
+    %div.storylist
+      %p.title{ :id => track.name + "_" + String(story_type) }
+        = track.name
+        = ":"
+        = String(story_type)
+      - cur_stories.each do |cur_story|
+        %p.story
+          %span.storytype
+            - case cur_story.story_type
+            - when 'feature'
+              %img(src='https://cdn0-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/feature.png')
+            - when 'bug'
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/bug.png')
+            - when 'chore'
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/chore.png')
+            - when 'release'
+              %img(src='https://cdn0-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/release.png')
+          %span.estimate
+            - case cur_story.estimate
+            - when -1
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_unestimated_fibonacci.gif')
+            - when 0
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_0pt_fibonacci.gif')
+            - when 1
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_1pt_fibonacci.gif')
+            - when 2
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_2pt_fibonacci.gif')
+            - when 3
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_3pt_fibonacci.gif')
+            - when 5
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_5pt_fibonacci.gif')
+            - when 8
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_8pt_fibonacci.gif')
+          %span.labels
+            = cur_story.labels
+          %span.name
+            = cur_story.name
+            = surround " (", ")" do
+              = link_to "link", cur_story.url

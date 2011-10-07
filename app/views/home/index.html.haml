@@ -1,0 +1,25 @@
+%center
+  %br
+  %br
+  %br
+  %br
+  %h1 Tracker Project Dashboard
+  %br
+  %br
+  %br
+  %form(action='/project/show')
+    %table
+      %tr
+        %td(style='text-align:right;')
+          = link_to 'API Token', 'https://www.pivotaltracker.com/profile'
+        %td
+          %input{:type=>"text", :name=>"tracker_api_key"}
+      %tr
+        %td(style='text-align:right;')
+          Project name
+        %td
+          %input{:type=>"text", :name=>"project_name", :value=>"Casebook Deux"}
+      %tr
+        %td
+        %td
+          %input{:type=>"submit", :name=>"Submit"}
