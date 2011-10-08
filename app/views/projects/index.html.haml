@@ -6,3 +6,5 @@
 %ul
   - @projects.each do |project|
     %li= link_to project.name, project_path(project.id)
+
+%div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'
