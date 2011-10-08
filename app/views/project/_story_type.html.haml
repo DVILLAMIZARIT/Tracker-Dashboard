@@ -1,0 +1,10 @@
+%span.storytype
+  - case story.story_type
+  - when 'feature'
+    %img(src='https://cdn0-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/feature.png')
+  - when 'bug'
+    %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/bug.png')
+  - when 'chore'
+    %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/chore.png')
+  - when 'release'
+    %img(src='https://cdn0-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/release.png')
