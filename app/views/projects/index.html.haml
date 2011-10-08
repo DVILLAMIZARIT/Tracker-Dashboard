@@ -1,4 +1,4 @@
-%h1 Tracker Project Dashboard: My Projects
+%h1 Tracker Dashboard: My Projects
 %ul
   - @projects.each do |project|
-    %li= link_to project.name, '/project/show?project_name='+project.name+'&tracker_api_key='+@token
+    %li= link_to project.name, '/project/show?project_name='+project.name+'&tracker_api_key='+current_user.token

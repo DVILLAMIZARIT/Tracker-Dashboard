@@ -24,4 +24,7 @@ TrackerDashboard::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
+
+  # Log to the console (useful when using WEBrick)
+  config.logger = Logger.new(STDOUT)
 end

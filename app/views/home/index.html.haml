@@ -1,26 +1,34 @@
 %center
-  %h1#homepage Tracker Project Dashboard
+  %h1#homepage Tracker Dashboard
   
-  %form(action='/projects/index' method='post')
+  =form_for :session, :url => '/signin' do |f|
     %table#dashboard
+      %tr
+        %td(colspan='2')
+          Please log in with your 
+          = link_to 'Pivotal Tracker', 'http://pivotaltracker.com/'
+          account:
       - if flash[:notice]
         %tr.flash
           %td(colspan='2')
             Invalid username or password
+      %tr.separator
+        %td
+        %td
       %tr
         %th
           Username/Email
         %td
-          %input{:type=>"text", :name=>"username"}
+          =f.text_field :username
       %tr
         %th
           Password
         %td
-          %input{:type=>"password", :name=>"password"}
+          =f.password_field :password
       %tr.separator
         %td
         %td
-          %input{:type=>"submit", :value=>"Login"}
+          =f.submit 'Sign in'
   
   
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'
