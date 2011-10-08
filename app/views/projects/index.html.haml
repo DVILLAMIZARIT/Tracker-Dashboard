@@ -1,4 +1,8 @@
-%h1 Tracker Dashboard: My Projects
+= render :partial => "shared/top_nav"
+
+%h3.breadcrumbs
+  = link_to 'All Projects', projects_path
+
 %ul
   - @projects.each do |project|
     %li= link_to project.name, '/project/show?project_name='+project.name+'&tracker_api_key='+current_user.token

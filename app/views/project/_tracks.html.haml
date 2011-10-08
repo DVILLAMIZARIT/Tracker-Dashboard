@@ -1,0 +1,42 @@
+%table
+  %tr
+    %td.track
+      %p.track Track
+    
+      %p.label
+      %p.budget Budget
+    
+      %p.done Done
+      %p.wip
+        WIP
+        = render :partial => "tooltip", 
+                 :locals => { :tooltip_text => 'Stories that are started, finished, delivered, or rejected.' }
+      %p.scheduled Scheduled
+    
+      %p.unplanned Blocked
+      %p.unplanned 
+        Unplanned
+        = render :partial => "tooltip", 
+                 :locals => { :tooltip_text => 'Based on the \'added_midweek\' label' }
+      %p.unmet_reqs 
+        Unmet Promises 
+        = render :partial => "tooltip", 
+                 :locals => { :tooltip_text => 'Based on the \'!shipthisweek!\' label' }
+    - tracks.each do |track|
+      %td.track
+        %p.track= track.name
+    
+        %p.label
+          %span.stories Stories
+          %span.points Points
+        %p.budget
+          %span.stories= track.budget[:stories]
+          %span.points=  track.budget[:points]
+     
+        %p.done=       render :partial => "track_story", :locals => { :track=>track, :key=>:done       }
+        %p.wip=        render :partial => "track_story", :locals => { :track=>track, :key=>:wip        }
+        %p.scheduled=  render :partial => "track_story", :locals => { :track=>track, :key=>:scheduled  }
+
+        %p.blocked=    render :partial => "track_story", :locals => { :track=>track, :key=>:blocked    }
+        %p.unplanned=  render :partial => "track_story", :locals => { :track=>track, :key=>:unplanned  }
+        %p.unmet_reqs= render :partial => "track_story", :locals => { :track=>track, :key=>:unmet_reqs }

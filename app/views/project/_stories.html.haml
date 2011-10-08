@@ -1,0 +1,41 @@
+- tracks.each do |track|
+  - track.stories.each do |story_type, cur_stories|
+    %div.storylist
+      %p.title{ :id => track.name + "_" + String(story_type) }
+        = track.name
+        = ":"
+        = String(story_type)
+      - cur_stories.each do |cur_story|
+        %p.story
+          %span.storytype
+            - case cur_story.story_type
+            - when 'feature'
+              %img(src='https://cdn0-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/feature.png')
+            - when 'bug'
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/bug.png')
+            - when 'chore'
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/chore.png')
+            - when 'release'
+              %img(src='https://cdn0-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/release.png')
+          %span.estimate
+            - case cur_story.estimate
+            - when -1
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_unestimated_fibonacci.gif')
+            - when 0
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_0pt_fibonacci.gif')
+            - when 1
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_1pt_fibonacci.gif')
+            - when 2
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_2pt_fibonacci.gif')
+            - when 3
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_3pt_fibonacci.gif')
+            - when 5
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_5pt_fibonacci.gif')
+            - when 8
+              %img(src='https://cdn1-pivotaltracker.pantherssl.com/images/v7/application/stories_view/icons/estimate_8pt_fibonacci.gif')
+          %span.labels
+            = cur_story.labels
+          %span.name
+            = cur_story.name
+            = surround " (", ")" do
+              = link_to "link", cur_story.url

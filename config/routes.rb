@@ -6,7 +6,7 @@ TrackerDashboard::Application.routes.draw do
   match  "/signin",  :to => "sessions#create"
   match  "/signout", :to => "sessions#destroy"
 
-  get    "projects/index"
+  get    "projects/index", :as => :projects
 
   get    "project/show"
 
