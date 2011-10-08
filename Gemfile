@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-#gem 'rails', '3.1.0.rc5'
 gem 'rails', '3.1.0'
 gem 'rack', '1.3.3'
 
@@ -19,6 +18,8 @@ gem 'pivotal-tracker', '0.4.1', :git => "git://github.com/jsmestad/pivotal-track
 
 gem 'heroku'
 gem 'uglifier'
+gem 'execjs'
+gem 'therubyracer'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
