@@ -15,6 +15,16 @@ table#dashbaord th {
   text-align: right;
 }
 
+table#dashboard tr.flash {
+}
+
+table#dashboard tr.flash td {
+  border: red 1px solid;
+  text-align: center;
+  color: red;
+  background-color: #ffe0e0;
+}
+
 table#dashboard tr.separator td {
   padding-top: 12px;
 }

@@ -1,8 +1,12 @@
 TrackerDashboard::Application.routes.draw do
+  get "projects/index"
+
   get "project/show"
 
   root :to => "home#index"
   get "home/index"
+
+  post "projects/index"
 
   get "project/show"
 

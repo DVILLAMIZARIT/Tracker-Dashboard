@@ -1,23 +1,26 @@
 %center
   %h1#homepage Tracker Project Dashboard
   
-  %form(action='/project/show')
+  %form(action='/projects/index' method='post')
     %table#dashboard
+      - if flash[:notice]
+        %tr.flash
+          %td(colspan='2')
+            Invalid username or password
       %tr
         %th
-          Project&nbsp;name
+          Username/Email
         %td
-          %input{:type=>"text", :name=>"project_name", :value=>"Casebook Deux"}
+          %input{:type=>"text", :name=>"username"}
       %tr
         %th
-          API&nbsp;Token
+          Password
         %td
-          %input{:type=>"text", :name=>"tracker_api_key"}
-          %img.help(src='/assets/tooltip_icon.gif' title='In Pivotal Tracker, click on \'Profile\' and scroll to the bottom.  You will need to create a new token if you do not have one.')
+          %input{:type=>"password", :name=>"password"}
       %tr.separator
         %td
         %td
-          %input{:type=>"submit", :value=>"View Dashboard"}
+          %input{:type=>"submit", :value=>"Login"}
   
   
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'
