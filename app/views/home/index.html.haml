@@ -1,34 +1,23 @@
 %center
-  %br
-  %br
-  %br
-  %br
-  %h1 Tracker Project Dashboard
-  %br
-  %br
-  %br
+  %h1#homepage Tracker Project Dashboard
+  
   %form(action='/project/show')
-    %table(style='width:400px;')
+    %table#dashboard
       %tr
-        %td(style='text-align:right;')
+        %th
           Project&nbsp;name
         %td
           %input{:type=>"text", :name=>"project_name", :value=>"Casebook Deux"}
       %tr
-        %td(style='text-align:right;')
+        %th
           API&nbsp;Token
         %td
           %input{:type=>"text", :name=>"tracker_api_key"}
-      %tr
-        %td(style='text-align:right;')
-        %td(style='font-size:80%;')
-          = surround 'You can find your Tracker API token at the bottom of your ', '.' do
-            = link_to 'Profile Page', 'https://www.pivotaltracker.com/profile'
-          You can request one if you don't have one.
-      %tr
+          %img.help(src='/assets/tooltip_icon.gif' title='In Pivotal Tracker, click on \'Profile\' and scroll to the bottom.  You will need to create a new token if you do not have one.')
+      %tr.separator
         %td
-        %td(style='padding-top:15px;')
+        %td
           %input{:type=>"submit", :value=>"View Dashboard"}
-
-
-  %p(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'
+  
+  
+%div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'

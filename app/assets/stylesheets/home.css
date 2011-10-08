@@ -2,3 +2,25 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+h1#homepage {
+  padding-top: 50px;
+}
+
+table#dashbaord {
+  padding-top: 50px;
+}
+
+table#dashbaord th {
+  text-align: right;
+}
+
+table#dashboard tr.separator td {
+  padding-top: 12px;
+}
+
+div.sourcecode {
+  position: absolute;
+  bottom: 8px;
+  right: 20px;
+}

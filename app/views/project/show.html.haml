@@ -1,4 +1,4 @@
-%h1
+%h1#subpage
   Tracker Project Dasbhoard:
   = @project_name 
 %table
@@ -14,8 +14,12 @@
       %p.scheduled Scheduled
     
       %p.unplanned Blocked
-      %p.unplanned Unplanned
-      %p.unmet_reqs Unmet Requirements
+      %p.unplanned 
+        Unplanned
+        %img.help(src='/assets/tooltip_icon.gif' title='Based on the \'added_midweek\' label')
+      %p.unmet_reqs 
+        Unmet Promises 
+        %img.help(src='/assets/tooltip_icon.gif' title='Based on the \'!shipthisweek!\' label')
     - @iter_stats.all_tracks.each do |track|
       %td.track
         %p.track= track.name

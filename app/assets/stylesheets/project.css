@@ -3,9 +3,11 @@
   They will automatically be included in application.css.
 */
 
-h1 {
+h1#subpage {
   padding: 0;
   margin: 0;
+  width: 100%;
+  text-align: center;
 }
 
 td.track {
