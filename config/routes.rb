@@ -8,7 +8,7 @@ TrackerDashboard::Application.routes.draw do
 
   get    "projects/index", :as => :projects
 
-  get    "project/show"
+  get    "projects/show/:id", :to => "projects#show", :as => :project
 
   get    "home/index", :as => :login
   root   :to => "home#index"
