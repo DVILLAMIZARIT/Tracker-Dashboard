@@ -3,7 +3,7 @@
 %h3.breadcrumbs
   = link_to 'All Projects', projects_path
   = " » "
-  = @project_name 
+  = @project.name 
 
 = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks }
 

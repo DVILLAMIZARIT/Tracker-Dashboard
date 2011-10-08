@@ -10,6 +10,8 @@ TrackerDashboard::Application.routes.draw do
 
   get    "projects/show/:id", :to => "projects#show", :as => :project
 
+  get    "project/show", :to => "projects#index"
+
   get    "home/index", :as => :login
   root   :to => "home#index"
 end
