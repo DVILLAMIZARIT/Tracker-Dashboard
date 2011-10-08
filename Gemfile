@@ -18,6 +18,7 @@ gem 'simple_form'
 gem 'pivotal-tracker', '0.4.1', :git => "git://github.com/jsmestad/pivotal-tracker.git"
 
 gem 'heroku'
+gem 'uglifier'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
