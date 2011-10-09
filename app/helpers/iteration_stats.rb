@@ -32,12 +32,12 @@ class IterationStats
   end
 
   def split_stories_into_tracks(iter, tracks)
-    stories = { :done      => ArrayOfStories.new( iter.stories.all(:current_state => 'accepted' ) ),
-                :wip       => ArrayOfStories.new( iter.stories.all(:current_state => 'started'  ) + 
-                                                  iter.stories.all(:current_state => 'finished' ) + 
-                                                  iter.stories.all(:current_state => 'delivered' ) + 
-                                                  iter.stories.all(:current_state => 'rejected' ) ),
-                :scheduled => ArrayOfStories.new( iter.stories.all(:current_state => 'unstarted') ) }
+    stories = { :done      => ArrayOfStories.new( iter.stories.all(:current_state => 'accepted'  ) ),
+                :wip       => ArrayOfStories.new( iter.stories.all(:current_state => 'delivered' ) + 
+                                                  iter.stories.all(:current_state => 'finished'  ) + 
+                                                  iter.stories.all(:current_state => 'started'   ) + 
+                                                  iter.stories.all(:current_state => 'rejected'  ) ),
+                :scheduled => ArrayOfStories.new( iter.stories.all(:current_state => 'unstarted' ) ) }
 
     [:done, :wip, :scheduled].each do |key|
       stories[key].each do |story|
