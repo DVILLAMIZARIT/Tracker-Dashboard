@@ -5,7 +5,9 @@
   %h3.breadcrumbs
     = link_to 'All Projects', projects_path
     = " » "
-    = @project.name 
+    = @project.name
+    = surround '(', ')' do
+      = link_to 'edit', edit_project_path(@project.id)
   
   = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks, :budget_date => @budget_date }
   

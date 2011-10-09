@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       logger.info "Sign in succeeded for " + username
       sign_in user
       if session['return-to'].nil?
-        redirect_to(:controller=>"projects", :action => 'index')
+        redirect_to projects_path
       else
         redirect_to session['return-to']
         session['return-to'] = nil
