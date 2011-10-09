@@ -7,7 +7,7 @@ class IterationStats
     initialize_tracks(iter, tracks)
     split_stories_into_tracks(iter, tracks)
     postprocess
-    @all_tracks = [@track_all] + @tracks + [@track_other]
+    @all_tracks = [@track_all] + @tracks.sort{ |x,y| x.name <=> y.name } + [@track_other]
   end
 
   def initialize_tracks(iter, tracks_in)

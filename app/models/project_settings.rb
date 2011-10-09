@@ -1,5 +1,5 @@
 class ProjectSettings < ActiveRecord::Base
-  has_many :tracks, :dependent => :destroy
+  has_many :tracks, :dependent => :destroy, :order => 'label ASC'
   accepts_nested_attributes_for :tracks, 
                                 :allow_destroy => true,
                                 :reject_if => proc { |attributes| attributes['label'].blank? }
