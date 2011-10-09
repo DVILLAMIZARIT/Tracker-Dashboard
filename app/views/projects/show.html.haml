@@ -10,3 +10,6 @@
   = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks }
   
   = render :partial => "stories", :locals => { :tracks => @iter_stats.all_tracks }
+
+%div#preload(style='display:none;')
+  = image_tag("black_arrow.png")
