@@ -13,7 +13,12 @@ class SessionsController < ApplicationController
     else
       logger.info "Sign in succeeded for " + username
       sign_in user
-      redirect_to(:controller=>"projects", :action => 'index')
+      if session['return-to'].nil?
+        redirect_to(:controller=>"projects", :action => 'index')
+      else
+        redirect_to session['return-to']
+        session['return-to'] = nil
+      end
     end
   end
 

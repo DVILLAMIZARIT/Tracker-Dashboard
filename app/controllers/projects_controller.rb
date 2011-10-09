@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   def index
     if !signed_in?
+      session['return-to'] = request.url
       logger.info "User not signed in.  Redirecting."
       flash[:notice] = "Please sign in first."
       redirect_to login_path
@@ -15,6 +16,7 @@ class ProjectsController < ApplicationController
 
   def show
     if !signed_in?
+      session['return-to'] = request.url
       logger.info "User not signed in.  Redirecting."
       flash[:notice] = "Please sign in first."
       redirect_to login_path
