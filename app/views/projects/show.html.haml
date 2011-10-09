@@ -7,7 +7,10 @@
     = " » "
     = @project.name
     = surround '(', ')' do
-      = link_to 'edit', edit_project_path(@project.id)
+      - if @iter_stats.all_tracks.count > 2
+        = link_to 'edit', edit_project_path(@project.id)
+      - else
+        = link_to 'edit', edit_project_path(@project.id), { :class => 'reverse_tooltip tooltip_default_on',  :title => 'You haven\'t enabled any tracks for this project yet.<br /><br />Click here to get started!' }
   
   = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks, :budget_date => @budget_date }
   
