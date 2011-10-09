@@ -7,7 +7,7 @@
     = " » "
     = @project.name 
   
-  = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks }
+  = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks, :budget_date => @budget_date }
   
   = render :partial => "stories", :locals => { :tracks => @iter_stats.all_tracks }
 

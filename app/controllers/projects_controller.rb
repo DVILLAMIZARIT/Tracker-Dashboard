@@ -30,11 +30,12 @@ class ProjectsController < ApplicationController
     @project = PivotalTracker::Project.find(@project_id.to_i)
 
     # FIXME: 
-    @track_budgets = [ { :label => 'trk-eligibility',     :budget => { :points => "10", :stories => ""   } },
-                       { :label => 'trk-licensing',       :budget => { :points => "20", :stories => ""   } },
-                       { :label => 'trk-placement',       :budget => { :points => "10", :stories => ""   } },
-                       { :label => 'trk-data-conversion', :budget => { :points => "",   :stories => "10" } },
-                       { :label => 'trk-sys-int',         :budget => { :points => "",   :stories => ""   } } ]
+    @budget_date = "10/9"
+    @track_budgets = [ { :label => 'trk-eligibility',     :budget => { :points => "10", :stories => "" } },
+                       { :label => 'trk-licensing',       :budget => { :points => "18", :stories => "" } },
+                       { :label => 'trk-placement',       :budget => { :points =>   "", :stories => "" } },
+                       { :label => 'trk-data-conversion', :budget => { :points => "15", :stories => "" } },
+                       { :label => 'trk-sys-int',         :budget => { :points =>  "5", :stories => "" } } ]
     
     @iter = @project
     @iter_stats = IterationStats.new(@iter, @track_budgets)
