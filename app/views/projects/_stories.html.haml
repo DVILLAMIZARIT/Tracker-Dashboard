@@ -5,13 +5,16 @@
         = track.name
         = ":"
         = String(story_type)
+        %span.toplink
+          = link_to 'Back to Top', '#top'
       - cur_stories.each do |cur_story|
-        %p.story
-          = render :partial => "story_type", :locals => { :story => cur_story }
-          = render :partial => "story_estimate", :locals => { :story => cur_story }
-          %span.labels
-            = cur_story.labels
-          %span.name
-            = cur_story.name
-            = surround " (", ")" do
-              = link_to "link", cur_story.url
+        %table.story
+          %tr
+            = render :partial => "story_type", :locals => { :story => cur_story }
+            = render :partial => "story_estimate", :locals => { :story => cur_story }
+            %td.name
+              %font.labels
+                = cur_story.labels
+              = cur_story.name
+              = surround " (", ")" do
+                = link_to "link", cur_story.url

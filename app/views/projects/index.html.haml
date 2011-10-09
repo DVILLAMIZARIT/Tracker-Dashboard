@@ -1,10 +1,9 @@
 = render :partial => "shared/top_nav"
-
-%h3.breadcrumbs
-  = link_to 'All Projects', projects_path
-
-%ul
-  - @projects.each do |project|
-    %li= link_to project.name, project_path(project.id)
-
+%div#content
+  
+  %p Choose a project
+  %ul
+    - @projects.each do |project|
+      %li= link_to project.name, project_path(project.id)
+  
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'

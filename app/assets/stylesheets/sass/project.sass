@@ -1,3 +1,5 @@
+@import "colors"
+
 td.track
   padding: 10px 25px 10px 0px
   p
@@ -6,11 +8,12 @@ td.track
     padding: 0
     height: 18px
     text-align: center
-  p.track
-    padding: 0 0 5px 0
-    margin: 0 0 15px 0
+  p.track, p.track_no_underline
+    padding: 0 0 2px 0
+    margin: 0 0 6px 0
     font-weight: bold
-    border-bottom: 1px solid gray
+  p.track
+    border-bottom: 1px solid $mid-bluegray
   p.label, p.budget, p.scheduled
     padding: 0 0 10px 0
 
@@ -25,21 +28,31 @@ div.storylist
     padding: 2px 5px 2px 5px
     margin: 0 0 2px 0
   p.title
-    border: 1px solid blue
-    background-color: #e0e0ff
+    margin-top: 25px
+    border: 1px solid $mid-bluegray
 
-p.story
-  border: 1px solid gray
+    background: $lighter-gray /* for non-css3 browsers */
+    background: -webkit-gradient(linear, left top, left bottom, from($lightest-gray), to($light-gray))
+    background: -moz-linear-gradient(top,  $lightest-gray,  $light-gray)
 
-span.storytype
-  display: inline-block
-  width: 20px
-
-span.estimate
-  display: inline-block
-  width: 20px
-
-span.labels
-  color: green
+    span.toplink
+      float: right  
 
 
+table.story
+  border: 1px solid $mid-bluegray
+  width: 100%
+
+  td
+    vertical-align: top
+  
+  td.storytype
+    width: 20px
+  td.estimate
+    width: 20px
+  td.name
+    font.labels
+      font-size: 90%
+      color: green
+   
+  

@@ -1,10 +1,12 @@
+%div#top(style='height:0;width:0;')
 = render :partial => "shared/top_nav"
 
-%h3.breadcrumbs
-  = link_to 'All Projects', projects_path
-  = " » "
-  = @project.name 
-
-= render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks }
-
-= render :partial => "stories", :locals => { :tracks => @iter_stats.all_tracks }
+%div#content
+  %h3.breadcrumbs
+    = link_to 'All Projects', projects_path
+    = " » "
+    = @project.name 
+  
+  = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks }
+  
+  = render :partial => "stories", :locals => { :tracks => @iter_stats.all_tracks }

@@ -1,4 +1,14 @@
+@import "colors"
+
 #topnav
+  padding: 5px
+
+  background: $lighter-gray /* for non-css3 browsers */
+  background: -webkit-gradient(linear, left top, left bottom, from($lightest-gray), to($light-gray))
+  background: -moz-linear-gradient(top,  $lightest-gray,  $light-gray)
+
+  border-bottom: 1px solid $mid-bluegray
+
   h1
     padding: 0
     margin: 0
@@ -7,5 +17,3 @@
     position: absolute
     top: 5px
     right: 10px
-  
-
