@@ -42,4 +42,38 @@ class ProjectsController < ApplicationController
 
   end
 
+  def edit
+    if !signed_in?
+      session['return-to'] = request.url
+      logger.info "User not signed in.  Redirecting."
+      flash[:notice] = "Please sign in first."
+      redirect_to login_path
+      return
+    end
+
+    @project_id = params[:id]
+
+    PivotalTracker::Client.use_ssl = true
+    PivotalTracker::Client.token = current_user.token
+    @project = PivotalTracker::Project.find(@project_id.to_i)
+
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project)
+    @project_settings.tracks.build
+  end
+
+  def update
+    if !signed_in?
+      session['return-to'] = request.url
+      logger.info "User not signed in.  Redirecting."
+      flash[:notice] = "Please sign in first."
+      redirect_to login_path
+      return
+    end
+
+    @project_settings = ProjectSettings.find_by_tracker_id(params[:id])
+    @project_settings.update_attributes(params[:project_settings]) # FIXME: CHECK FOR ERRORS
+
+    redirect_to project_path(params[:id])
+  end
+
 end

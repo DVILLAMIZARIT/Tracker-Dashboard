@@ -1,0 +1,26 @@
+%div#top(style='height:0;width:0;')
+= render :partial => "shared/top_nav"
+
+%div#content
+  %h3.breadcrumbs
+    = link_to 'All Projects', projects_path
+    = " » "
+    = @project.name
+    = " » "
+    = link_to 'edit', edit_project_path(@project.id)
+  
+  = form_for @project_settings, :url => project_path(@project.id) do |f|
+    %table
+      %tr
+        %th Label
+        %th Enabled?
+        %th Budget (Stories)
+        %th Budget (Points)
+      = f.fields_for :tracks do |t|
+        %tr
+          %td= t.text_field :label
+          %td= t.check_box :enabled
+          %td= t.text_field :budget_stories
+          %td= t.text_field :budget_points
+    = f.submit "Update"
+    

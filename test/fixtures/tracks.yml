@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  label: MyString
+  budget: 
+  budget_points: MyString
+  projectsettings: 
+
+two:
+  label: MyString
+  budget: 
+  budget_points: MyString
+  projectsettings: 

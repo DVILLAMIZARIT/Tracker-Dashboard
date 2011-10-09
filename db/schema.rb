@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111008153721) do
+ActiveRecord::Schema.define(:version => 20111009144837) do
+
+  create_table "project_settings", :force => true do |t|
+    t.integer  "tracker_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tracks", :force => true do |t|
+    t.string   "label"
+    t.string   "budget_stories"
+    t.string   "budget_points"
+    t.integer  "project_settings_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "enabled"
+  end
+
+  add_index "tracks", ["project_settings_id"], :name => "index_tracks_on_project_settings_id"
 
   create_table "users", :force => true do |t|
     t.string   "username"
