@@ -23,11 +23,13 @@ class IterationStats
 
     @tracks = []
     tracks_in.each do |track_in|
-      cur_track = TrackStats.new
-      cur_track.name   = track_in[:label]
-      cur_track.label  = track_in[:label]
-      cur_track.budget = track_in[:budget]
-      @tracks.push cur_track
+      if track_in[:enabled]
+        cur_track = TrackStats.new
+        cur_track.name   = track_in[:label]
+        cur_track.label  = track_in[:label]
+        cur_track.budget = { :points => track_in[:budget_points], :stories => track_in[:budget_stories] }
+        @tracks.push cur_track
+      end
     end
   end
 

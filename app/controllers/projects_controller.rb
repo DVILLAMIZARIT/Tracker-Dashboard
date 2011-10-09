@@ -29,16 +29,16 @@ class ProjectsController < ApplicationController
     PivotalTracker::Client.token = current_user.token
     @project = PivotalTracker::Project.find(@project_id.to_i)
 
-    # FIXME: 
-    @budget_date = "10/9"
-    @track_budgets = [ { :label => 'trk-eligibility',     :budget => { :points => "10", :stories => "" } },
-                       { :label => 'trk-licensing',       :budget => { :points => "18", :stories => "" } },
-                       { :label => 'trk-placement',       :budget => { :points =>   "", :stories => "" } },
-                       { :label => 'trk-data-conversion', :budget => { :points => "15", :stories => "" } },
-                       { :label => 'trk-sys-int',         :budget => { :points =>  "5", :stories => "" } } ]
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project)
+
+    if @project_settings.tracks.count > 0
+      t = @project_settings.tracks.map { |x| x.updated_at }.sort.last
+      @budget_date = " (As of #{t.mon}/#{t.mday})"
+    else
+      @budget_date = ""
+    end
     
-    @iter = @project
-    @iter_stats = IterationStats.new(@iter, @track_budgets)
+    @iter_stats = IterationStats.new(@project, @project_settings.tracks)
 
   end
 
