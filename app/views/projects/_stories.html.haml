@@ -18,3 +18,5 @@
               = cur_story.name
               = surround " (", ")" do
                 = link_to "link", cur_story.url
+            %td.state
+              = cur_story.current_state
