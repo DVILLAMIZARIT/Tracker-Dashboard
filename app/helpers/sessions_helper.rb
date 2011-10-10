@@ -15,7 +15,11 @@ module SessionsHelper
   end
 
   def signed_in?
-    !current_user.nil?
+    if current_user.nil?
+      return false
+    end
+    @current_user.save # bump up the 'updated_at' timestamp, which we're using to track activity
+    return true
   end
 
   def sign_out
