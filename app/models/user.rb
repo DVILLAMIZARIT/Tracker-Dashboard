@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
 
+  def is_admin
+    ! [false, nil, 'f'].include?( self[:is_admin] )
+  end
+
   def self.authenticate(username, submitted_password)
     user = find_by_username(username) || create(username)
 

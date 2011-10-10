@@ -42,6 +42,7 @@ group :development, :test do
   #gem 'ruby-debug19'
   gem 'haml-rails'
   gem 'faker'
+  gem 'taps'
 end
 
 group :production do
