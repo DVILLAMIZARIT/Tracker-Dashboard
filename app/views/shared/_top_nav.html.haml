@@ -1,3 +1,7 @@
 %div#topnav
   %h1 Tracker Dashboard
-  %p#signout= link_to 'Sign Out', signout_path
+  %p#signout
+    - if current_user.is_admin
+      = link_to 'Admin', admin_path
+      %font(style='color:lightgray;')= " | "
+    = link_to 'Sign Out', signout_path

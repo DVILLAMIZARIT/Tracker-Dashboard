@@ -13,6 +13,8 @@ TrackerDashboard::Application.routes.draw do
 
   get    "project/show", :to => "projects#index" # This is a friendly redirect from the old scheme to the new scheme
 
+  get    "admin", :to => "admin#index", :as => :admin
+
   get    "home/index", :to => "home#index", :as => :login
   match  "/login", :to => "home#index"
   root   :to => "home#index"

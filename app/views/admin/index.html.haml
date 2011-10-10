@@ -1,0 +1,18 @@
+= render :partial => "shared/top_nav"
+%div#content
+  %h3.breadcrumbs
+    &laquo;
+    = link_to 'Back to Homepage', projects_path
+  
+  %h2 Users
+  %table
+    %tr
+      %th Username
+      %th First Login
+      %th Last Login
+    - @users.sort{|x,y| x.updated_at <=> y.updated_at }.each do |user|
+      %tr
+        %td=user.username
+        %td=user.created_at
+        %td=user.updated_at
+  
