@@ -25,3 +25,17 @@
 
         - @cur_stories.each do |cur_story|
           = render :partial => "shared/story_with_highlighting", :locals => { :story => cur_story }
+
+%div.fixed#snapshot-up
+  %p &uarr; Story is above 
+%div.fixed#snapshot-notfound
+  %p Story added since snapshot
+%div.fixed#snapshot-down
+  %p &darr; Story is below
+
+%div.fixed#current-up
+  %p &uarr; Story is above 
+%div.fixed#current-notfound
+  %p Story moved/deleted
+%div.fixed#current-down
+  %p &darr; Story is below

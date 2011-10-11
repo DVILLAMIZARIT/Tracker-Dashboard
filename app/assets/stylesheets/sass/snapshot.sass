@@ -1,0 +1,35 @@
+@import "colors"
+
+table.highlighted-story
+  background-color: $peach
+
+div.fixed
+  position: fixed
+  display: none
+
+  p
+    z-index: 1
+    padding: 10px 30px 10px 30px
+    background: $peach
+    color: red
+    font-size: 125%
+    font-weight: bold
+    -moz-box-shadow: 0 0 3px 3px #aaa
+    -webkit-box-shadow: 0 0 3px 3px #aaa
+    box-shadow: 0 0 3px 3px #aaa
+
+div#snapshot-up, div#current-up
+  top: 0px
+
+div#snapshot-notfound, div#current-notfound
+  top: 48%
+
+div#snapshot-down, div#current-down
+  bottom: 0px
+
+div#snapshot-up, div#snapshot-notfound, div#snapshot-down
+  left: 18%
+
+div#current-up, div#current-notfound, div#current-down
+  right: 18%
+
