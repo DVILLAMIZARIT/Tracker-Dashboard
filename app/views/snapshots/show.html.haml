@@ -15,13 +15,13 @@
 
   %table
     %tr
-      %td(style='width: 50%; vertical-align: top;')
+      %td#snapshot-stories(style='width: 50%; vertical-align: top;')
         %p(style='font-weight: bold; width: 100%; text-align: center;') Snapshot
 
         - @snapshot.stories.each do |cur_story|
-          = render :partial => "shared/story", :locals => { :story => cur_story }
-      %td(style='width: 50%; vertical-align: top;')
+          = render :partial => "shared/story_with_highlighting", :locals => { :story => cur_story }
+      %td#current-stories(style='width: 50%; vertical-align: top;')
         %p(style='font-weight: bold; width: 100%; text-align: center;') Now
 
         - @cur_stories.each do |cur_story|
-          = render :partial => "shared/story", :locals => { :story => cur_story }
+          = render :partial => "shared/story_with_highlighting", :locals => { :story => cur_story }

@@ -1,0 +1,13 @@
+- if !story.url.nil?
+  %table{:class=>["story","highlightable-story"], :data=>{:story_id => story.url.match(/\d+$/)[0]}}
+    %tr
+      = render :partial => "shared/story_type", :locals => { :story => story }
+      = render :partial => "shared/story_estimate", :locals => { :story => story }
+      %td.name
+        %font.labels
+          = story.labels
+        = story.name
+        = surround " (", ")" do
+          = link_to "link", story.url
+      %td.state
+        = story.current_state
