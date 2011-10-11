@@ -18,12 +18,13 @@ class User < ActiveRecord::Base
       return nil
     end
 
-    user.save # This is a valid Pivotal Tracker user, so let's save
+    user.save # Update the last-login time
     return user
   end
 
   def self.authenticate_with_salt(username, cookie_salt)
     user = find_by_username(username)
+    user.save # Update the last-login time
     (user && user.salt == cookie_salt) ? user : nil
   end
 
