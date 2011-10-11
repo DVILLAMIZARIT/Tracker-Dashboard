@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  story_type: MyString
+  labels: MyString
+  name: MyString
+  current_state: MyString
+  estimate: MyString
+  url: MyString
+
+two:
+  story_type: MyString
+  labels: MyString
+  name: MyString
+  current_state: MyString
+  estimate: MyString
+  url: MyString

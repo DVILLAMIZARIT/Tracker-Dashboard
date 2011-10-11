@@ -1,0 +1,30 @@
+%div#top(style='height:0;width:0;')
+= render :partial => "shared/top_nav"
+
+%div#content
+  %h3.breadcrumbs
+    = link_to 'All Projects', projects_path
+    = " » "
+    = link_to @project.name, project_path(@project.id)
+    = " » "
+    = link_to "Snapshots", project_snapshots_path(@project.id)
+    = " » "
+    = @snapshot.created_at
+  
+  %h3 Snapshots
+
+  %table
+    %tr
+      %td(style='width: 50%; vertical-align: top;')
+        %p(style='font-weight: bold') 
+          Snapshot of Backlog
+          = surround '(', ')' do
+            = @snapshot.created_at
+
+        - @snapshot.stories.each do |cur_story|
+          = render :partial => "shared/story", :locals => { :story => cur_story }
+      %td(style='width: 50%; vertical-align: top;')
+        %p(style='font-weight: bold') Current Backlog
+
+        - @cur_stories.each do |cur_story|
+          = render :partial => "shared/story", :locals => { :story => cur_story }

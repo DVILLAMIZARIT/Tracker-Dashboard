@@ -9,15 +9,4 @@
           &uarr;
           = link_to 'Top', '#top'
       - cur_stories.each do |cur_story|
-        %table.story
-          %tr
-            = render :partial => "story_type", :locals => { :story => cur_story }
-            = render :partial => "story_estimate", :locals => { :story => cur_story }
-            %td.name
-              %font.labels
-                = cur_story.labels
-              = cur_story.name
-              = surround " (", ")" do
-                = link_to "link", cur_story.url
-            %td.state
-              = cur_story.current_state
+        = render :partial => "shared/story", :locals => { :story => cur_story }

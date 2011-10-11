@@ -11,6 +11,8 @@
         = link_to 'edit', edit_project_path(@project.id)
       - else
         = link_to 'edit', edit_project_path(@project.id), { :class => 'reverse_tooltip tooltip_default_on',  :title => 'You haven\'t enabled any tracks for this project yet.<br /><br />Click here to get started!' }
+      = ", "
+      = link_to "snapshots", project_snapshots_path(@project.id)
   
   = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks, :budget_date => @budget_date }
   

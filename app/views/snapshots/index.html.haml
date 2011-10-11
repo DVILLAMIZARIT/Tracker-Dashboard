@@ -1,0 +1,18 @@
+%div#top(style='height:0;width:0;')
+= render :partial => "shared/top_nav"
+
+%div#content
+  %h3.breadcrumbs
+    = link_to 'All Projects', projects_path
+    = " » "
+    = link_to @project.name, project_path(@project.id)
+    = " » "
+    = "Snapshots"
+  
+  %h3 Snapshots
+
+  %ul
+    %li= link_to "Create new snapshot", new_project_snapshot_path(@project.id)
+    - @snapshots.each do |snapshot|
+      %li= link_to snapshot.created_at, project_snapshot_path(@project.id, snapshot.id)
+
