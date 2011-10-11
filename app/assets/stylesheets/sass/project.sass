@@ -14,8 +14,12 @@ td.track
     font-weight: bold
   p.track
     border-bottom: 1px solid $mid-bluegray
-  p.label, p.budget, p.scheduled
+  p.label, p.budget, p.scheduled, p.unestimated
     padding: 0 0 10px 0
+
+td.track:first-child
+  p
+    text-align: left
 
 span.stories, span.points
   display: inline-block

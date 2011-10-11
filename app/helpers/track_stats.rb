@@ -49,6 +49,7 @@ class TrackStats
     scan_for_blockages
     scan_for_surprises
     scan_for_unmet_requirements
+    scan_for_unestimated
   end
 
   def scan_for_blockages
@@ -77,6 +78,16 @@ class TrackStats
     (@stories[:wip] + @stories[:scheduled]).each do |story|
       if empty_string_if_nil(story.labels).match('!shipthisweek!')
         @stories[:unmet_reqs].push story
+      end
+    end
+  end
+
+  def scan_for_unestimated
+    @stories[:unestimated] = ArrayOfStories.new( [] )
+    
+    (@stories[:wip] + @stories[:scheduled]).each do |story|
+      if story.estimate == -1
+        @stories[:unestimated].push story
       end
     end
   end
