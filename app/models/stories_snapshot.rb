@@ -18,4 +18,9 @@ class StoriesSnapshot < ActiveRecord::Base
 
     return ss
   end
+
+  def timestamp
+    created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
+  end
+
 end

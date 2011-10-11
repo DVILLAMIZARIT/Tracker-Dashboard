@@ -9,22 +9,19 @@
     = " » "
     = link_to "Snapshots", project_snapshots_path(@project.id)
     = " » "
-    = @snapshot.created_at
+    = @snapshot.timestamp
   
-  %h3 Snapshots
+  %h3 Current+Backlog: Snapshot vs. Now
 
   %table
     %tr
       %td(style='width: 50%; vertical-align: top;')
-        %p(style='font-weight: bold') 
-          Snapshot of Backlog
-          = surround '(', ')' do
-            = @snapshot.created_at
+        %p(style='font-weight: bold; width: 100%; text-align: center;') Snapshot
 
         - @snapshot.stories.each do |cur_story|
           = render :partial => "shared/story", :locals => { :story => cur_story }
       %td(style='width: 50%; vertical-align: top;')
-        %p(style='font-weight: bold') Current Backlog
+        %p(style='font-weight: bold; width: 100%; text-align: center;') Now
 
         - @cur_stories.each do |cur_story|
           = render :partial => "shared/story", :locals => { :story => cur_story }

@@ -14,5 +14,5 @@
   %ul
     %li= link_to "Create new snapshot", new_project_snapshot_path(@project.id)
     - @snapshots.each do |snapshot|
-      %li= link_to snapshot.created_at, project_snapshot_path(@project.id, snapshot.id)
+      %li= link_to snapshot.timestamp, project_snapshot_path(@project.id, snapshot.id)
 
