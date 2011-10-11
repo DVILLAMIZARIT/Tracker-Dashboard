@@ -13,6 +13,6 @@
     - @users.sort{|x,y| x.updated_at <=> y.updated_at }.each do |user|
       %tr
         %td=user.username
-        %td=user.created_at
-        %td=user.updated_at
+        %td=user.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
+        %td=user.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
   
