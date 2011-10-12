@@ -1,1 +1,1 @@
-See http://trackerdashboard.heroku.com/
+This app is running at: http://trackerdashboard.heroku.com/
