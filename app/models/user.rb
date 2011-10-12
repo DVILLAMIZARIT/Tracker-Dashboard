@@ -24,8 +24,12 @@ class User < ActiveRecord::Base
 
   def self.authenticate_with_salt(username, cookie_salt)
     user = find_by_username(username)
+    if !(user && user.salt == cookie_salt) 
+      return nil
+    end
+
     user.save # Update the last-login time
-    (user && user.salt == cookie_salt) ? user : nil
+    return user
   end
 
 private
