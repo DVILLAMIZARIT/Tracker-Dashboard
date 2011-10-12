@@ -18,7 +18,7 @@ module SessionsHelper
     if current_user.nil?
       return false
     end
-    @current_user.save # bump up the 'updated_at' timestamp, which we're using to track activity
+    @current_user.touch # bump up the 'updated_at' timestamp, which we're using to track activity
     return true
   end
 
