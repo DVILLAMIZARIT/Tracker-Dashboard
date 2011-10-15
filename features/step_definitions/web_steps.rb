@@ -165,6 +165,11 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
+Then /^(?:|I )should see "([^"]*)" stories and "([^"]*)" points with "([^"]*)" status in the "([^"]*)" track$/ do |num_stories,num_points,story_status,track_name|
+  page.find(:xpath, '//p[text()="'+track_name+'"]/../p[@class="'+story_status+'"]/span[@class="stories"]').text.should == num_stories
+  page.find(:xpath, '//p[text()="'+track_name+'"]/../p[@class="'+story_status+'"]/span[@class="points"]' ).text.should == num_points
+end
+
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
