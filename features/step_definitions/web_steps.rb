@@ -29,6 +29,14 @@ Given /^(?:|Tracker )has a user "([^"]*)" with password "([^"]*)"$/ do |user,pas
                          :body => File.join('features', 'support', 'fixtures', 'tokens.xml') } )
 end
 
+Given /^(?:|user )"([^"]*)" is an admin$/ do |user|
+  u = User.new
+  u.username = user
+  u.is_admin = true
+  u.salt = "102970yhberg08h0q3g8hq33"
+  u.save
+end
+
 Given /^(?:|Tracker )has no user "([^"]*)" with password "([^"]*)"$/ do |user,pass|
 
   FakeWeb.register_uri(:post,

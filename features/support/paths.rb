@@ -12,6 +12,8 @@ module NavigationHelpers
       '/home/index'
     when /^the projects\s?page$/
       '/projects'
+    when /^the admin\s?page$/
+      '/admin'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
