@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
 
     @project = get_single_project(current_user, @project_id.to_i)
 
-    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project)
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project_id, get_current_and_backlog_stories(current_user, @project_id.to_i))
 
     if @project_settings.tracks.count > 0
       t = @project_settings.tracks.map { |x| x.updated_at }.sort.last
@@ -35,7 +35,8 @@ class ProjectsController < ApplicationController
 
     @project = get_single_project(current_user, @project_id.to_i)
 
-    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project)
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project_id, get_current_and_backlog_stories(current_user, @project_id.to_i))
+    @project_settings.create_tracks_for_new_labels(get_current_and_backlog_stories(current_user, @project_id.to_i))
     @project_settings.tracks.build
   end
 

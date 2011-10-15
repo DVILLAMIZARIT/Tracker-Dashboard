@@ -21,12 +21,20 @@ Feature: User sees a dashboard for a project
     And I should see "0" stories and "0" points with "blocked" status in the "Other" track
     And I should see "0" stories and "0" points with "unestimated" status in the "Other" track
 
+  Scenario: User sees all labels when configuring tracks
+    And I follow "edit"
+    Then I should see a text input with value "label 1"
+    Then I should see a text input with value "label 2"
+    Then I should see a text input with value "label 3"
+    Then I should see a text input with value "label 4"
+    Then I should see a text input with value "label 5"
+
   Scenario: User configures tracks
     And I follow "edit"
-    And I check the first "enabled" box
-    And I fill in "12" for the first budget box
+    And I check "project_settings[tracks_attributes][0][enabled]"
+    And I fill in "project_settings[tracks_attributes][0][budget_stories]" with "12"
     And I press "Update"
-    Then I should see "3" tracks
+    And I should see a track named "label 1"
 
   Scenario: User sees a link to snapshots
     And I follow "snapshots"

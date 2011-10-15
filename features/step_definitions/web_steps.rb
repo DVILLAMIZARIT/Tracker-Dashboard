@@ -165,6 +165,14 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
+Then /^(?:|I )should see a track named "([^"]*)"$/ do |name|
+  page.find(:xpath, '//p[@class="track"][text()="'+name+'"]').text.should == name
+end
+
+Then /^(?:|I )should see a text input with value "([^"]*)"$/ do |value|
+  page.find(:xpath, '//input[@value="'+value+'"]').value.should == value
+end
+
 Then /^(?:|I )should see "([^"]*)" stories and "([^"]*)" points with "([^"]*)" status in the "([^"]*)" track$/ do |num_stories,num_points,story_status,track_name|
   page.find(:xpath, '//p[text()="'+track_name+'"]/../p[@class="'+story_status+'"]/span[@class="stories"]').text.should == num_stories
   page.find(:xpath, '//p[text()="'+track_name+'"]/../p[@class="'+story_status+'"]/span[@class="points"]' ).text.should == num_points
