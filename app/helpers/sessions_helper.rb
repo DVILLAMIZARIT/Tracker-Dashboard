@@ -27,6 +27,16 @@ module SessionsHelper
     self.current_user = nil
   end
 
+  def redirect_if_not_signed_in
+    if !signed_in?
+      session['return-to'] = request.url
+      flash[:notice] = "Please sign in first."
+      redirect_to login_path
+      return true
+    end
+    return false
+  end
+
 private
 
   def user_from_remember_token

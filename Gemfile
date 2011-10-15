@@ -33,6 +33,7 @@ group :test do
   gem 'launchy'
   gem 'jasmine'
   gem 'factory_girl_rails'
+  gem 'fakeweb'
 end
 
 group :development, :test do

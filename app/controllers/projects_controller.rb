@@ -1,33 +1,18 @@
 class ProjectsController < ApplicationController
+  include TrackerHelper
 
   def index
-    if !signed_in?
-      session['return-to'] = request.url
-      logger.info "User not signed in.  Redirecting."
-      flash[:notice] = "Please sign in first."
-      redirect_to login_path
-      return
-    end
+    return if redirect_if_not_signed_in
 
-    PivotalTracker::Client.use_ssl = true
-    PivotalTracker::Client.token = current_user.token
-    @projects = PivotalTracker::Project.all
+    @projects = get_all_projects(current_user)
   end
 
   def show
-    if !signed_in?
-      session['return-to'] = request.url
-      logger.info "User not signed in.  Redirecting."
-      flash[:notice] = "Please sign in first."
-      redirect_to login_path
-      return
-    end
+    return if redirect_if_not_signed_in
 
     @project_id = params[:id]
 
-    PivotalTracker::Client.use_ssl = true
-    PivotalTracker::Client.token = current_user.token
-    @project = PivotalTracker::Project.find(@project_id.to_i)
+    @project = get_single_project(current_user, @project_id.to_i)
 
     @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project)
 
@@ -38,37 +23,24 @@ class ProjectsController < ApplicationController
       @budget_date = ""
     end
     
-    @iter_stats = IterationStats.new(@project, @project_settings.tracks)
+    cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
+    @tracks = split_stories_into_tracks(cur_stories, @project_settings.tracks)
 
   end
 
   def edit
-    if !signed_in?
-      session['return-to'] = request.url
-      logger.info "User not signed in.  Redirecting."
-      flash[:notice] = "Please sign in first."
-      redirect_to login_path
-      return
-    end
+    return if redirect_if_not_signed_in
 
     @project_id = params[:id]
 
-    PivotalTracker::Client.use_ssl = true
-    PivotalTracker::Client.token = current_user.token
-    @project = PivotalTracker::Project.find(@project_id.to_i)
+    @project = get_single_project(current_user, @project_id.to_i)
 
     @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project)
     @project_settings.tracks.build
   end
 
   def update
-    if !signed_in?
-      session['return-to'] = request.url
-      logger.info "User not signed in.  Redirecting."
-      flash[:notice] = "Please sign in first."
-      redirect_to login_path
-      return
-    end
+    return if redirect_if_not_signed_in
 
     @project_settings = ProjectSettings.find_by_tracker_id(params[:id])
     @project_settings.update_attributes(params[:project_settings]) # FIXME: CHECK FOR ERRORS

@@ -10,7 +10,10 @@ class User < ActiveRecord::Base
     begin
       PivotalTracker::Client.use_ssl = true
       PivotalTracker::Client.token = nil # authentication didn't seem to work without resetting this.
+      logger.info "Trying to get token"
       user.token = PivotalTracker::Client.token(username, submitted_password)
+      logger.info "Token = " + user.token
+      logger.info "Trying to get projects listings"
       projects = PivotalTracker::Project.all
       logger.info "User " + username + " has these projects: " + projects.map{|x| x.name}.join(',')
     rescue RestClient::Unauthorized

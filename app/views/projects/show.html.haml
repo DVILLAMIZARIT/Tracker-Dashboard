@@ -11,9 +11,9 @@
     = surround 'Current Week\'s Stats (Compare to previous ', ')' do
       = link_to "snapshots", project_snapshots_path(@project.id)
   
-  = render :partial => "tracks", :locals => { :tracks => @iter_stats.all_tracks, :budget_date => @budget_date }
+  = render :partial => "tracks",  :locals => { :tracks => @tracks, :budget_date => @budget_date }
   
-  = render :partial => "stories", :locals => { :tracks => @iter_stats.all_tracks }
+  = render :partial => "stories", :locals => { :tracks => @tracks }
 
 %div#preload(style='display:none;')
   = image_tag("black_arrow.png")
