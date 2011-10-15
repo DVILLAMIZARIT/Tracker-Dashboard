@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
       return nil
     end
 
+    user.save
     user.touch # Update the last-login time
     return user
   end
@@ -28,10 +29,13 @@ class User < ActiveRecord::Base
   def self.authenticate_with_salt(username, cookie_salt)
     user = find_by_username(username)
     if !(user && user.salt == cookie_salt) 
+      logger.info "authenticate_with_salt: user " + (username || "nil") + " is nil" if !user
+      logger.info "authenticate_with_salt: user " + (username || "nil") + " has wrong salt" if user && !(user.salt == cookie_salt)
       return nil
     end
 
     user.touch # Update the last-login time
+    logger.info "authenticate_with_salt: user " + username + " authenticates against salt"
     return user
   end
 
@@ -42,6 +46,7 @@ private
     user = User.new
     user.username = username
     user.salt = random_string(SALT_LENGTH)
+    user.save
     return user
   end
 

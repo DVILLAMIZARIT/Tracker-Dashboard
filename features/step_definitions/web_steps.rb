@@ -33,7 +33,7 @@ Given /^(?:|user )"([^"]*)" is an admin$/ do |user|
   u = User.new
   u.username = user
   u.is_admin = true
-  u.salt = "102970yhberg08h0q3g8hq33"
+  u.salt = "Some 32-digit secret string...."
   u.save
 end
 

@@ -29,6 +29,7 @@ module SessionsHelper
 
   def redirect_if_not_signed_in
     if !signed_in?
+      logger.info "Not signed in.  Redirecting"
       session['return-to'] = request.url
       flash[:notice] = "Please sign in first."
       redirect_to login_path

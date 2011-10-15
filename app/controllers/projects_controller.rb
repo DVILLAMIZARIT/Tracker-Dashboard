@@ -4,6 +4,9 @@ class ProjectsController < ApplicationController
   def index
     return if redirect_if_not_signed_in
 
+    if current_user.nil?
+      Logger.info "current user is nil!"
+    end
     @projects = get_all_projects(current_user)
   end
 
