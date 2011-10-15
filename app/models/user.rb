@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
       return nil
     end
 
-    user.save # Update the last-login time
+    user.touch # Update the last-login time
     return user
   end
 
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
       return nil
     end
 
-    user.save # Update the last-login time
+    user.touch # Update the last-login time
     return user
   end
 
