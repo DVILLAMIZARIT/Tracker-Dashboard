@@ -2,12 +2,20 @@
 = render :partial => "shared/top_nav", :locals => { :project => @project, :active_tab => "snapshots" }
 
 %div#content
-  %h3 Current+Backlog: Snapshot vs. Now
-
   %table
     %tr
       %td#snapshot-stories(style='width: 50%; vertical-align: top;')
-        %p(style='font-weight: bold; width: 100%; text-align: center;') Snapshot
+        %p(style='font-weight: bold; width: 100%; text-align: center;') 
+          Snapshot taken on
+          %select#list-of-snapshots{:onchange=>'window.location = this.options[selectedIndex].getAttribute("data-url");'}
+            - @snapshots.each do |snapshot|
+              - if snapshot.id == @snapshot.id
+                %option{:selected=>'true', 
+                        :data=>{:url=>project_snapshot_path(@project.id, snapshot.id)}}= snapshot.timestamp
+              - else
+                %option{:data=>{:url=>project_snapshot_path(@project.id, snapshot.id)}}= snapshot.timestamp
+          = surround "(", ")" do
+            = link_to 'Create new snapshot', new_project_snapshot_path(@project.id)
 
         - @snapshot.stories.each do |cur_story|
           = render :partial => "shared/story_with_highlighting", :locals => { :story => cur_story }

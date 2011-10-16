@@ -140,9 +140,7 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
 end
 
 Then /^(?:|I )should see "([^"]*)" snapshot[s]*$/ do |num|
-  regexp = Regexp.new(/(AM|PM)/)
-  count = (1+num.to_i)
-  page.find(:xpath, '//body').text.split(regexp).length.should == count+1
+  page.should have_css("select#list-of-snapshots option", :count => num.to_i)
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|

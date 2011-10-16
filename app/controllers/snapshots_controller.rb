@@ -6,8 +6,14 @@ class SnapshotsController < ApplicationController
 
     @project_id  = params[:project_id]
 
-    @project = get_single_project(current_user, @project_id.to_i)
     @snapshots = StoriesSnapshot.find_all_by_tracker_project_id(@project_id, :order => "created_at DESC")
+
+    if @snapshots.empty?
+      @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
+      @snapshots = [ StoriesSnapshot.create_from_tracker_stories(@project_id, @cur_stories) ]
+    end
+
+    redirect_to project_snapshot_path(@project_id, @snapshots.first.id)
   end
 
   def show
@@ -19,6 +25,7 @@ class SnapshotsController < ApplicationController
     @project = get_single_project(current_user, @project_id.to_i)
     @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
 
+    @snapshots = StoriesSnapshot.find_all_by_tracker_project_id(@project_id, :order => "created_at DESC")
     @snapshot = StoriesSnapshot.find(@snapshot_id)
     @snapshot.stories.build
   end
@@ -30,9 +37,9 @@ class SnapshotsController < ApplicationController
 
     @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
 
-    StoriesSnapshot.create_from_tracker_stories(@project_id, @cur_stories)
+    @snapshot = StoriesSnapshot.create_from_tracker_stories(@project_id, @cur_stories)
 
-    redirect_to project_snapshots_path(@project_id)
+    redirect_to project_snapshot_path(@project_id, @snapshot.id)
   end
 
 end

@@ -10,8 +10,13 @@ Feature: User sees a dashboard for a project
     And I follow "Pivotal Tracker API Gem"
     And I follow "Snapshots"
 
-  Scenario: User create snapshots
-    And I follow "Create new snapshot"
+  Scenario: User sees existing snapshots
     Then I should see "1" snapshots
+
+  Scenario: User clicks on older snapshots
+
+  Scenario: User create new snapshots
+    And I follow "Create new snapshot"
+    Then I should see "2" snapshots
 
 
