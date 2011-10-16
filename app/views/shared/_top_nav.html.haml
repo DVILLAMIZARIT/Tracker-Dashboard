@@ -1,7 +1,28 @@
 %div#topnav
-  %h1 Tracker Dashboard
-  %p#signout
-    - if current_user.is_admin
-      = link_to 'Admin', admin_path
-      %font(style='color:lightgray;')= " | "
-    = link_to 'Sign Out', signout_path
+  %p#global
+    %span#logo 
+      = link_to 'Tracker Dashboard', projects_path
+
+  %p#page-actions
+    - if local_assigns[:project]
+      %span#projects
+        = link_to project.name, projects_path
+      - if active_tab == "current"
+        %span.tab-active#current
+          = link_to 'Current', project_path(project.id)
+        %span.tab-inactive#snapshots
+          = link_to 'Snapshots', project_snapshots_path(project.id)
+      - else
+        %span.tab-inactive#current
+          = link_to 'Current', project_path(project.id)
+        %span.tab-active#snapshots
+          = link_to 'Snapshots', project_snapshots_path(project.id)
+
+  %p#site-actions
+    %span#admin
+      - if current_user.is_admin
+        = link_to 'Admin', admin_path
+    %span#signout
+      = link_to 'Sign Out', signout_path
+
+%div.clearboth

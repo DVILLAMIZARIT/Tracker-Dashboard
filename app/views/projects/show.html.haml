@@ -1,16 +1,8 @@
 %div#top(style='height:0;width:0;')
-= render :partial => "shared/top_nav"
+= render :partial => "shared/top_nav", :locals => { :project => @project, :active_tab => "current" }
 
 %div#content
-  %ul#breadcrumbs
-    %li= link_to 'All Projects', projects_path
-    %li= @project.name
-  %div(style='clear:both;height:0px')
 
-  %h3
-    = surround 'Current Week\'s Stats (Compare to previous ', ')' do
-      = link_to "snapshots", project_snapshots_path(@project.id)
-  
   = render :partial => "tracks",  :locals => { :tracks => @tracks, :budget_date => @budget_date }
   
   = render :partial => "stories", :locals => { :tracks => @tracks }

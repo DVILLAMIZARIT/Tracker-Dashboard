@@ -37,7 +37,7 @@ Feature: User sees a dashboard for a project
     And I should see a track named "label 1"
 
   Scenario: User sees a link to snapshots
-    And I follow "snapshots"
+    And I follow "Snapshots"
     Then I should see "Pivotal Tracker API Gem"
     And I should see "Snapshots"
 

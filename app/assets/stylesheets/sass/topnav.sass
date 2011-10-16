@@ -1,19 +1,71 @@
 @import "colors"
 
 #topnav
-  padding: 5px
+  background: $sprawl-orange-lighter
+  border-bottom: 3px solid $sprawl-orange-light
 
-  background: $lighter-gray /* for non-css3 browsers */
-  background: -webkit-gradient(linear, left top, left bottom, from($lightest-gray), to($light-gray))
-  background: -moz-linear-gradient(top,  $lightest-gray,  $light-gray)
+  padding: 15px 5px 5px 5px
 
-  border-bottom: 1px solid $mid-bluegray
+  display: -webkit-box
+  display: -moz-box
+  display: box
 
-  h1
-    padding: 0
+  -webkit-box-orient: horizontal
+  -moz-box-orient: horizontal
+  box-orient: horizontal
+
+  a:link, a:active, a:visited, a:hover
+    color: $sprawl-orange-darker
+    text-decoration: none
+  a:hover
+    color: $sprawl-orange-dark
+
+  p
     margin: 0
-    width: 100%
-  #signout
-    position: absolute
-    top: 5px
-    right: 10px
+    height: 20px
+
+  #global
+    span#logo
+      font-weight: bold
+      a
+        line-height: 15px
+        font-size: 24px
+        color: $october-red
+
+  #page-actions
+    -webkit-box-flex: 1
+    -moz-box-flex: 1
+    box-flex: 1
+
+    text-align: right
+
+    span
+      padding-left: 15px
+      padding-right: 15px
+      margin-left: 4px
+
+    span#current
+      margin-left: 25px
+    span.tab-active
+      padding-bottom: 6px
+      padding-top: 6px
+      border: 3px solid $sprawl-orange-light
+      background: white
+      border-bottom: 3px solid white
+    span.tab-inactive
+      padding-bottom: 6px
+      border: 3px solid $sprawl-orange-light
+      background: $sprawl-orange-lightest
+
+  #site-actions
+    -webkit-box-flex: 8
+    -moz-box-flex: 8
+    box-flex: 8
+
+    text-align: right
+    span
+      padding-left: 15px
+
+div.clearboth
+  clear: both
+  height: 0px

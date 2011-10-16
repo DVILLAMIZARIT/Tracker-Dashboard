@@ -8,7 +8,7 @@ Feature: User sees a dashboard for a project
     And I fill in "session_password" with "pass"
     And I press "Sign in"
     And I follow "Pivotal Tracker API Gem"
-    And I follow "snapshots"
+    And I follow "Snapshots"
 
   Scenario: User create snapshots
     And I follow "Create new snapshot"
