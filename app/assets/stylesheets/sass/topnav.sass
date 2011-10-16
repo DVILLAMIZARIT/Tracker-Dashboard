@@ -1,18 +1,23 @@
 @import "colors"
 
+@mixin horiz-flexbox
+  display: -webkit-box
+  display: -moz-box
+  display: box
+  -webkit-box-orient: horizontal
+  -moz-box-orient: horizontal
+  box-orient: horizontal
+
 #topnav
   background: $sprawl-orange-lighter
   border-bottom: 3px solid $sprawl-orange-light
 
-  padding: 15px 5px 5px 5px
+  padding-top: 15px 
+  padding-bottom: 5px 
 
-  display: -webkit-box
-  display: -moz-box
-  display: box
+  width: 100%
 
-  -webkit-box-orient: horizontal
-  -moz-box-orient: horizontal
-  box-orient: horizontal
+  @include horiz-flexbox
 
   a:link, a:active, a:visited, a:hover
     color: $sprawl-orange-darker
@@ -23,13 +28,17 @@
   p
     margin: 0
     height: 20px
+    overflow: hide
+    span
+      height: 20px
 
   #global
+    padding-left: 5px
     span#logo
       font-weight: bold
       a
         line-height: 15px
-        font-size: 24px
+        font-size: 22px /* seems to affect the height of this span or p */
         color: $october-red
 
   #page-actions
@@ -47,13 +56,14 @@
     span#current
       margin-left: 25px
     span.tab-active
-      padding-bottom: 6px
-      padding-top: 6px
+      padding-bottom: 7px
+      padding-top: 8px
       border: 3px solid $sprawl-orange-light
       background: white
       border-bottom: 3px solid white
     span.tab-inactive
-      padding-bottom: 6px
+      padding-bottom: 7px
+      padding-top: 2px
       border: 3px solid $sprawl-orange-light
       background: $sprawl-orange-lightest
 
@@ -63,6 +73,7 @@
     box-flex: 8
 
     text-align: right
+    padding-right: 5px
     span
       padding-left: 15px
 
