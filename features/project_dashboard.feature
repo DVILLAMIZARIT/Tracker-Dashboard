@@ -38,7 +38,8 @@ Feature: User sees a dashboard for a project
 
   Scenario: User sees a link to snapshots
     And I follow "snapshots"
-    Then I should see "Pivotal Tracker API Gem » Snapshots"
+    Then I should see "Pivotal Tracker API Gem"
+    And I should see "Snapshots"
 
   Scenario: User sees individual stories
 

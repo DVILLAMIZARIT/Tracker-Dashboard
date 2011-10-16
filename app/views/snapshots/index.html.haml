@@ -2,12 +2,11 @@
 = render :partial => "shared/top_nav"
 
 %div#content
-  %h3.breadcrumbs
-    = link_to 'All Projects', projects_path
-    = " » "
-    = link_to @project.name, project_path(@project.id)
-    = " » "
-    = "Snapshots"
+  %ul#breadcrumbs
+    %li= link_to 'All Projects', projects_path
+    %li= link_to @project.name, project_path(@project.id)
+    %li= "Snapshots"
+  %div(style='clear:both;height:0px')
   
   %h3 Snapshots
 

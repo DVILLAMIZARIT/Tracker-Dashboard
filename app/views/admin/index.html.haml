@@ -1,8 +1,8 @@
 = render :partial => "shared/top_nav"
 %div#content
-  %h3.breadcrumbs
-    &laquo;
-    = link_to 'Back to Homepage', projects_path
+  %ul#breadcrumbs
+    %li.back= link_to 'Back to Homepage', projects_path
+  %div(style='clear:both;height:0px')
   
   %h2 Users
   %table

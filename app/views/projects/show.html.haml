@@ -2,10 +2,10 @@
 = render :partial => "shared/top_nav"
 
 %div#content
-  %h3.breadcrumbs
-    = link_to 'All Projects', projects_path
-    = " » "
-    = @project.name
+  %ul#breadcrumbs
+    %li= link_to 'All Projects', projects_path
+    %li= @project.name
+  %div(style='clear:both;height:0px')
 
   %h3
     = surround 'Current Week\'s Stats (Compare to previous ', ')' do

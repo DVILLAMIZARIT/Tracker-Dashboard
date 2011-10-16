@@ -1,4 +1,23 @@
+@import "colors"
+
 h3.breadcrumbs
   font-size: 14px
   margin: 0 0 20px 0
 
+ul#breadcrumbs
+  list-style-type: none
+  margin: 0
+  padding: 0
+  font-size: 85%
+  font-weight: bold
+  li
+    float: left
+    padding-right: 5px
+  li:after
+    color: $mid-gray
+    content: " »"
+  li:last-child:after
+    content: ""
+  li.back:before
+    color: $mid-gray
+    content: "« "
