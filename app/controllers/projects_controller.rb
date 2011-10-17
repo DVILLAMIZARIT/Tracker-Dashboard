@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
 
     @project_id = params[:id]
 
+    @projects = get_all_projects(current_user)
     @project = get_single_project(current_user, @project_id.to_i)
 
     @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project_id, get_current_and_backlog_stories(current_user, @project_id.to_i))
@@ -36,6 +37,7 @@ class ProjectsController < ApplicationController
 
     @project_id = params[:id]
 
+    @projects = get_all_projects(current_user)
     @project = get_single_project(current_user, @project_id.to_i)
 
     @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project_id, get_current_and_backlog_stories(current_user, @project_id.to_i))

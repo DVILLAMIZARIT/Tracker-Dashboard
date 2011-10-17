@@ -1,14 +1,9 @@
 %div#top(style='height:0;width:0;')
-= render :partial => "shared/top_nav"
+= render :partial => "shared/top_nav", :locals => { :project => @project, :projects => @projects, :active_tab => "current" }
 
 %div#content
-  %h3.breadcrumbs
-    = link_to 'All Projects', projects_path
-    = " » "
-    = @project.name
-    = " » "
-    = link_to 'edit', edit_project_path(@project.id)
   
+  %h3 Editing Tracks &amp; Budgets
   = form_for @project_settings, :url => project_path(@project.id) do |f|
     %table
       %tr

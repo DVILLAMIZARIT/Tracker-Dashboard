@@ -1,12 +1,12 @@
 %div#top(style='height:0;width:0;')
-= render :partial => "shared/top_nav", :locals => { :project => @project, :active_tab => "snapshots" }
+= render :partial => "shared/top_nav", :locals => { :project => @project, :projects => @projects, :active_tab => "snapshots" }
 
 %div#content
-  %table
+  %h3 Snapshots
+  %table(style='margin-top:0;padding-top:0')
     %tr
       %td#snapshot-stories(style='width: 50%; vertical-align: top;')
         %p(style='font-weight: bold; width: 100%; text-align: center;') 
-          Snapshot taken on
           %select#list-of-snapshots{:onchange=>'window.location = this.options[selectedIndex].getAttribute("data-url");'}
             - @snapshots.each do |snapshot|
               - if snapshot.id == @snapshot.id

@@ -5,8 +5,12 @@
 
   %p#page-actions
     - if local_assigns[:project]
-      %span#projects
+      %span#projects(style='display:inline')
         = link_to project.name, projects_path
+        - if local_assigns[:projects]
+          = image_tag "down_arrow.png"
+        - else
+          %font(style='display:inline-block;width:9px')
       - if active_tab == "current"
         %span.tab-active#current
           = link_to 'Current', project_path(project.id)
@@ -24,5 +28,11 @@
         = link_to 'Admin', admin_path
     %span#signout
       = link_to 'Sign Out', signout_path
+
+
+- if local_assigns[:projects]
+  %ul#projects-dropdown.dropdown
+    - projects.each do |cur_project|
+      %li= link_to cur_project.name, project_path(cur_project.id)
 
 %div.clearboth

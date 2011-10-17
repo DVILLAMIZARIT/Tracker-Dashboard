@@ -1,18 +1,15 @@
 = render :partial => "shared/top_nav"
 %div#content
-  %ul#breadcrumbs
-    %li.back= link_to 'Back to Homepage', projects_path
-  %div(style='clear:both;height:0px')
   
   %h2 Users
   %table
     %tr
       %th Username
-      %th First Login
       %th Last Login
+      %th First Login
     - @users.sort{|x,y| y.updated_at <=> x.updated_at }.each do |user|
       %tr
         %td=user.username
-        %td=user.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
         %td=user.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
+        %td=user.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
   

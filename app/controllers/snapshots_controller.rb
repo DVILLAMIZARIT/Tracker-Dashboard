@@ -22,6 +22,7 @@ class SnapshotsController < ApplicationController
     @project_id  = params[:project_id]
     @snapshot_id = params[:id]
 
+    @projects = get_all_projects(current_user)
     @project = get_single_project(current_user, @project_id.to_i)
     @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
 
