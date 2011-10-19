@@ -1,11 +1,19 @@
-%center
-  %h1#homepage Tracker Dashboard
-  
+= render :partial => "shared/top_nav", :locals => {  }
+
+%div#promo(style='padding:25px;float:left')
+  %b(style='font-size:110%') Manage (enterprise!) large projects in Pivotal Tracker
+  %ul
+    %li See progress across parallel tracks of development
+    %li Snapshot your backlog and watch how stories progress
+  %p
+    =image_tag 'tracker_screenshot.png', {:height=>"243px", :width=>"600px"}
+
+%div#login-form(style='padding:20px;float:left')
   =form_for :session, :url => '/signin' do |f|
     %table#dashboard
       %tbody
         %tr
-          %td(colspan='2')
+          %td(colspan='2' style='font-weight:bold')
             Please log in with your 
             = link_to 'Pivotal Tracker', 'http://pivotaltracker.com/'
             account:
@@ -30,6 +38,5 @@
           %td
           %td
             =f.submit 'Sign in'
-  
   
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'

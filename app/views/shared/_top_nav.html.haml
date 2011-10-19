@@ -24,10 +24,13 @@
 
   %p#site-actions
     %span#admin
-      - if current_user.is_admin
-        = link_to 'Admin', admin_path
-    %span#signout
-      = link_to 'Sign Out', signout_path
+      = link_to 'Feedback', 'https://github.com/jimlindstrom/Tracker-Dashboard/issues/new'
+    - if !current_user.nil?
+      %span#admin
+        - if current_user.is_admin
+          = link_to 'Admin', admin_path
+      %span#signout
+        = link_to 'Sign Out', signout_path
 
 
 - if local_assigns[:projects]
