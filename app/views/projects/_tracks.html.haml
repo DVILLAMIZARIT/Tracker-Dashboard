@@ -4,6 +4,9 @@
       %p.track_no_underline
     
       %p.label
+      %p.performance 
+        Performance
+        = render :partial => "tooltip", :locals => { :tooltip_text => 'Based on stories in \'Current\' and \'Backlog\'.' }
       %p.budget
         = "Budget#{budget_date}"
         = surround '(', ')' do
@@ -14,19 +17,20 @@
     
       %p.done Done
       %p.wip
-        WIP
+        In Progress
         = render :partial => "tooltip", :locals => { :tooltip_text => 'Stories that are started, finished, delivered, or rejected.' }
       %p.scheduled Scheduled
     
+      %p.ref-flags Red Flags
       %p.blocked Blocked
       %p.unestimated Unestimated
 
       %p.unplanned 
         Unplanned
-        = render :partial => "tooltip", :locals => { :tooltip_text => 'Based on the \'added_midweek\' label' }
+        = render :partial => "tooltip", :locals => { :tooltip_text => 'Stories added after the iteration started.  Based on the \'added_midweek\' label.' }
       %p.unmet_reqs 
         Unmet Promises 
-        = render :partial => "tooltip", :locals => { :tooltip_text => 'Based on the \'!shipthisweek!\' label' }
+        = render :partial => "tooltip", :locals => { :tooltip_text => 'Stories promised but not finished.  Based on the \'!shipthisweek!\' label.' }
 
     - tracks.each do |track|
       %td.track
@@ -35,6 +39,8 @@
         %p.label
           %span.stories Stories
           %span.points Points
+
+        %p.performance
         %p.budget
           %span.stories= track.budget[:stories]
           %span.points=  track.budget[:points]
@@ -43,6 +49,7 @@
         %p.wip=         render :partial => "track_story", :locals => { :track=>track, :key=>:wip         }
         %p.scheduled=   render :partial => "track_story", :locals => { :track=>track, :key=>:scheduled   }
 
+        %p.red-flags
         %p.blocked=     render :partial => "track_story", :locals => { :track=>track, :key=>:blocked     }
         %p.unestimated= render :partial => "track_story", :locals => { :track=>track, :key=>:unestimated }
 
