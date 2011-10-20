@@ -3,17 +3,20 @@ class ProjectsController < ApplicationController
 
   def index
     return if redirect_if_not_signed_in
-
     if current_user.nil?
       Logger.info "current user is nil!"
     end
+    current_user.increment_pageviews
+
     @projects = get_all_projects(current_user)
   end
 
   def show
     return if redirect_if_not_signed_in
+    current_user.increment_pageviews
 
     @project_id = params[:id]
+    current_user.viewed_project(@project_id.to_i)
 
     @projects = get_all_projects(current_user)
     @project = get_single_project(current_user, @project_id.to_i)
@@ -34,8 +37,10 @@ class ProjectsController < ApplicationController
 
   def edit
     return if redirect_if_not_signed_in
+    current_user.increment_pageviews
 
     @project_id = params[:id]
+    current_user.viewed_project(@project_id.to_i)
 
     @projects = get_all_projects(current_user)
     @project = get_single_project(current_user, @project_id.to_i)

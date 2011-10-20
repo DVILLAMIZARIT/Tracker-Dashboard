@@ -39,6 +39,26 @@ class User < ActiveRecord::Base
     return user
   end
 
+  def increment_pageviews
+    if !self.pageviews or self.pageviews.nil?
+      self.pageviews = 0
+    else
+      self.pageviews = self.pageviews + 1
+    end
+    self.save
+  end
+
+  def viewed_project(project_id)
+    if !self.projects_viewed or self.projects_viewed.nil?
+      self.projects_viewed = String(project_id)
+    else
+      projects = self.projects_viewed.split(',').map{|x| x.to_i}
+      projects = (projects + [project_id]).uniq
+      self.projects_viewed = projects.join(',')
+    end
+    self.save
+  end
+
 private
 
   def self.create(username)

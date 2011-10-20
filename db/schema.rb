@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111011134336) do
+ActiveRecord::Schema.define(:version => 20111020215259) do
 
   create_table "project_settings", :force => true do |t|
     t.integer   "tracker_id"
@@ -20,21 +20,21 @@ ActiveRecord::Schema.define(:version => 20111011134336) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "story_type"
-    t.string   "labels"
-    t.string   "name"
-    t.string   "current_state"
-    t.integer  "estimate",            :limit => 255
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "stories_snapshot_id"
+    t.string    "story_type"
+    t.string    "labels"
+    t.string    "name"
+    t.string    "current_state"
+    t.string    "url"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "stories_snapshot_id"
+    t.integer   "estimate"
   end
 
   create_table "stories_snapshots", :force => true do |t|
-    t.integer  "tracker_project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "tracker_project_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "tracks", :force => true do |t|
@@ -55,7 +55,9 @@ ActiveRecord::Schema.define(:version => 20111011134336) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.string    "salt"
-    t.boolean   "is_admin",   :default => false
+    t.boolean   "is_admin",        :default => false
+    t.string    "projects_viewed"
+    t.integer   "pageviews"
   end
 
 end

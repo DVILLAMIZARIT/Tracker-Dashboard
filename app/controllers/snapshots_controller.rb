@@ -18,9 +18,11 @@ class SnapshotsController < ApplicationController
 
   def show
     return if redirect_if_not_signed_in
+    current_user.increment_pageviews
 
     @project_id  = params[:project_id]
     @snapshot_id = params[:id]
+    current_user.viewed_project(@project_id.to_i)
 
     @projects = get_all_projects(current_user)
     @project = get_single_project(current_user, @project_id.to_i)
