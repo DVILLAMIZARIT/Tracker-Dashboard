@@ -32,7 +32,7 @@ Feature: User sees a dashboard for a project
   Scenario: User configures tracks
     And I follow "edit"
     And I check "project_settings[tracks_attributes][0][enabled]"
-    And I fill in "project_settings[tracks_attributes][0][budget_stories]" with "12"
+    And I fill in "project_settings[tracks_attributes][0][goal_stories]" with "12"
     And I press "Update"
     And I should see a track named "label 1"
 

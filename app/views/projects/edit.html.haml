@@ -3,19 +3,19 @@
 
 %div#content
   
-  %h3 Editing Tracks &amp; Budgets
+  %h3 Editing Tracks &amp; Goals
   = form_for @project_settings, :url => project_path(@project.id) do |f|
     %table
       %tr
         %th Label
         %th Enabled?
-        %th Budget (Stories)
-        %th Budget (Points)
+        %th Goal (Stories)
+        %th Goal (Points)
       = f.fields_for :tracks do |t|
         %tr
           %td= t.text_field :label
           %td= t.check_box :enabled
-          %td= t.text_field :budget_stories
-          %td= t.text_field :budget_points
+          %td= t.text_field :goal_stories
+          %td= t.text_field :goal_points
     = f.submit "Update"
     

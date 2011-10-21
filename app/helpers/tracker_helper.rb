@@ -23,7 +23,7 @@ module TrackerHelper
   end
   
   class TrackStats
-    attr_accessor :name, :label, :budget, :stories
+    attr_accessor :name, :label, :goal, :stories
   
     def initialize
       @stories = { :done      => ArrayOfStories.new([]),
@@ -103,12 +103,12 @@ module TrackerHelper
     @track_all = TrackStats.new
     @track_all.name   = "All"
     @track_all.label  = nil
-    @track_all.budget = { :stories => "", :points => "" }
+    @track_all.goal = { :stories => "", :points => "" }
 
     @track_other = TrackStats.new
     @track_other.name   = "Other"
     @track_other.label  = nil
-    @track_other.budget = { :stories => "", :points => "" }
+    @track_other.goal = { :stories => "", :points => "" }
 
     @tracks = []
     tracks_in.each do |track_in|
@@ -116,7 +116,7 @@ module TrackerHelper
         cur_track = TrackStats.new
         cur_track.name   = track_in[:label]
         cur_track.label  = track_in[:label]
-        cur_track.budget = { :points => track_in[:budget_points], :stories => track_in[:budget_stories] }
+        cur_track.goal = { :points => track_in[:goal_points], :stories => track_in[:goal_stories] }
         @tracks.push cur_track
       end
     end

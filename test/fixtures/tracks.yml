@@ -2,12 +2,12 @@
 
 one:
   label: MyString
-  budget: 
-  budget_points: MyString
+  goal: 
+  goal_points: MyString
   projectsettings: 
 
 two:
   label: MyString
-  budget: 
-  budget_points: MyString
+  goal: 
+  goal_points: MyString
   projectsettings: 

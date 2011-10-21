@@ -25,9 +25,9 @@ class ProjectsController < ApplicationController
 
     if @project_settings.tracks.count > 0
       t = @project_settings.tracks.map { |x| x.updated_at }.sort.last
-      @budget_date = " (As of #{t.mon}/#{t.mday})"
+      @goal_date = " (As of #{t.mon}/#{t.mday})"
     else
-      @budget_date = ""
+      @goal_date = ""
     end
     
     cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)

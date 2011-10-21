@@ -7,8 +7,8 @@
       %p.performance 
         Performance
         = render :partial => "tooltip", :locals => { :tooltip_text => 'Based on stories in \'Current\' and \'Backlog\'.' }
-      %p.budget
-        = "Budget#{budget_date}"
+      %p.goal
+        = "Goal#{goal_date}"
         = surround '(', ')' do
           - if tracks.count > 2
             = link_to 'edit', edit_project_path(@project.id)
@@ -41,9 +41,9 @@
           %span.points Points
 
         %p.performance
-        %p.budget
-          %span.stories= track.budget[:stories]
-          %span.points=  track.budget[:points]
+        %p.goal
+          %span.stories= track.goal[:stories]
+          %span.points=  track.goal[:points]
      
         %p.done=        render :partial => "track_story", :locals => { :track=>track, :key=>:done        }
         %p.wip=         render :partial => "track_story", :locals => { :track=>track, :key=>:wip         }
