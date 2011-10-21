@@ -7,8 +7,8 @@
       %th Username
       %th Last Login
       %th First Login
-      %th Pageviews
       %th Projects Viewed
+      %th Pageviews
     - @users.sort{|x,y| y.updated_at <=> x.updated_at }.each do |user|
       %tr
         %td=user.username
