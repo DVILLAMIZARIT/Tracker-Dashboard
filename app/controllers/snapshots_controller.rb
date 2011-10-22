@@ -1,6 +1,8 @@
 class SnapshotsController < ApplicationController
   include TrackerHelper
 
+  after_filter :update_user_analytics
+
   def index
     @project_id  = params[:project_id].to_i
 
@@ -14,11 +16,8 @@ class SnapshotsController < ApplicationController
   end
 
   def show
-    current_user.increment_pageviews
-
     @project_id  = params[:project_id].to_i
     @snapshot_id = params[:id].to_i
-    current_user.viewed_project(@project_id)
 
     @projects = TrackerProjects.fetch(current_user)
     @project = TrackerProject.fetch(current_user, @project_id)
@@ -37,6 +36,17 @@ class SnapshotsController < ApplicationController
     @snapshot = StoriesSnapshot.create_from_tracker_stories(@project_id, backlog.stories)
 
     redirect_to project_snapshot_path(@project_id, @snapshot.id)
+  end
+ 
+private
+
+  def update_user_analytics
+    if !current_user.nil?
+      current_user.increment_pageviews
+      if !params[:project_id].nil?
+        current_user.viewed_project(params[:project_id].to_i)
+      end
+    end
   end
 
 end
