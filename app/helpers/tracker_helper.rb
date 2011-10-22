@@ -81,22 +81,28 @@ module TrackerHelper
   end
 
   def get_all_projects(user)
-    PivotalTracker::Client.use_ssl = true
-    PivotalTracker::Client.token = user.token
-    return PivotalTracker::Project.all
+    Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => 1.minutes) do
+      PivotalTracker::Client.use_ssl = true
+      PivotalTracker::Client.token = user.token
+      PivotalTracker::Project.all
+    end
   end
 
   def get_single_project(user, project_id)
-    PivotalTracker::Client.use_ssl = true
-    PivotalTracker::Client.token = user.token
-    return PivotalTracker::Project.find(project_id)
+    Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => 1.minutes) do
+      PivotalTracker::Client.use_ssl = true
+      PivotalTracker::Client.token = user.token
+      PivotalTracker::Project.find(project_id)
+    end
   end
 
   def get_current_and_backlog_stories(user, project_id)
-    project = get_single_project(user, project_id)
-    stories = PivotalTracker::Iteration.current(project).stories
-    PivotalTracker::Iteration.backlog(project).each { |x| stories = stories + x.stories }
-    return stories
+    Rails.cache.fetch("user_#{user.id}_project_#{project_id}_current_and_backlog", :expires_in => 1.minutes) do
+      project = get_single_project(user, project_id)
+      stories = PivotalTracker::Iteration.current(project).stories
+      PivotalTracker::Iteration.backlog(project).each { |x| stories = stories + x.stories }
+      stories
+    end
   end
 
   def split_stories_into_tracks(stories_in, tracks_in)
