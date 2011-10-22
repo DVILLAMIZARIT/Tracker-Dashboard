@@ -9,6 +9,7 @@
       %th Created At
       %th # Tracks
       %th # Snapshots
+      %th # Users
     - @projects.sort{|x,y| y.updated_at <=> x.updated_at }.each do |project|
       %tr
         %td=project.tracker_id
@@ -16,4 +17,5 @@
         %td=project.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
         %td=project.tracks.select{|t| !t.enabled.nil? and t.enabled }.map{|t| t.label}.count
         %td=StoriesSnapshot.find_all_by_tracker_project_id(project.tracker_id).count
+        %td=User.find(:all, :conditions => ["projects_viewed like ?", "%#{project.tracker_id}%"]).count
   
