@@ -18,6 +18,8 @@ module NavigationHelpers
       '/admin/users'
     when /^the admin\s?listing\s?of\s?projects$/
       '/admin/projects'
+    when /^the "(.*)" project page$/i
+      project_path(102622) # FIXME
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

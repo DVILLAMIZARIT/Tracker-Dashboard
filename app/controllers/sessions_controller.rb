@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_filter :require_login, :only => [:create, :destroy]
+
   def create
     username = params[:session][:username]
     password = params[:session][:password]

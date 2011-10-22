@@ -29,3 +29,12 @@ Feature: User logs in and out
     And I follow "Sign Out"
     Then I should be on the login page
 
+  Scenario: Un-logged-in user is redirected to login then redireced back to his desired URL
+    Given Tracker has a user "user" with password "pass"
+    And Tracker has a project "Pivotal Tracker API Gem"
+    When I go to the "Pivotal Tracker API Gem" project page 
+    And I fill in "session_username" with "user"
+    And I fill in "session_password" with "pass"
+    And I press "Sign in"
+    Then I should be on the "Pivotal Tracker API Gem" project page 
+

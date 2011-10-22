@@ -27,16 +27,27 @@ module SessionsHelper
     self.current_user = nil
   end
 
-  def redirect_if_not_signed_in
-    if !signed_in?
-      logger.info "Not signed in.  Redirecting"
-      session['return-to'] = request.url
-      flash[:notice] = "Please sign in first."
-      redirect_to login_path
-      return true
-    end
-    return false
-  end
+  #def redirect_if_not_signed_in
+  #  if !signed_in?
+  #    logger.info "Not signed in.  Redirecting"
+  #    session['return-to'] = request.url
+  #    flash[:notice] = "Please sign in first."
+  #    redirect_to login_path
+  #    return true
+  #  end
+  #  return false
+  #end
+
+  #def redirect_if_not_signed_in_or_not_an_admin
+  #  return true if redirect_if_not_signed_in
+  #  if !current_user.is_admin
+  #    logger.info "User is not an admin.  Redirecting"
+  #    redirect_to projects_path
+  #    return true
+  #  end
+  #  return false
+  #end
+
 
 private
 
