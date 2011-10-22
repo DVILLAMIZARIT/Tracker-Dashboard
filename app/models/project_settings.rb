@@ -9,9 +9,14 @@ class ProjectSettings < ActiveRecord::Base
     ps.tracker_id = project_id
     ps.save
 
-    labels = stories.map { |x| (x.labels || "").split(',') }.flatten.sort.uniq
+    # Find all the labels.  Also find the 3 most-common labels.  Create 
+    # tracks for all labels, and enable those that are the most common ones.
+    all_labels = stories.map { |x| (x.labels || "").split(',') }.flatten.sort
+    labels = all_labels.uniq
+    common_labels = labels.map{ |x| { :count => all_labels.count(x), :label => x } }.sort{ |x,y| y[:count] <=> x[:count] }
+    common_labels = common_labels[0..2].map{ |x| x[:label] }
     labels.each do |label|
-      ps.tracks.create(:label => label)
+      ps.tracks.create(:label => label, :enabled => common_labels.include?(label))
     end
 
     return ps
