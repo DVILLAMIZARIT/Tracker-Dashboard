@@ -50,14 +50,14 @@ ActiveRecord::Schema.define(:version => 20111021130906) do
   add_index "tracks", ["project_settings_id"], :name => "index_tracks_on_project_settings_id"
 
   create_table "users", :force => true do |t|
-    t.string   "username"
-    t.string   "token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "salt"
-    t.boolean  "is_admin",        :default => false
-    t.string   "projects_viewed"
-    t.integer  "pageviews"
+    t.string    "username"
+    t.string    "token"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "salt"
+    t.boolean   "is_admin",        :default => false
+    t.string    "projects_viewed"
+    t.integer   "pageviews"
   end
 
 end
