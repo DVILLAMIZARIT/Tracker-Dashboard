@@ -8,7 +8,12 @@
         Performance
         = render :partial => "tooltip", :locals => { :tooltip_text => 'Based on stories in \'Current\' and \'Backlog\'.' }
       %p.goal
-        = "Goal#{goal_date}"
+        - if project_settings.tracks.count > 0
+          - t = project_settings.tracks.map { |x| x.updated_at }.sort.last
+          = "Goal (As of #{t.mon}/#{t.mday})"
+        - else
+          = "Goal"
+
         = surround '(', ')' do
           - if tracks.count > 2
             = link_to 'edit', edit_project_path(@project.id)
