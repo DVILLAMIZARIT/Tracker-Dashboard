@@ -14,6 +14,10 @@ module NavigationHelpers
       '/projects'
     when /^the admin\s?page$/
       '/admin'
+    when /^the admin\s?listing\s?of\s?users$/
+      '/admin/users'
+    when /^the admin\s?listing\s?of\s?projects$/
+      '/admin/projects'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

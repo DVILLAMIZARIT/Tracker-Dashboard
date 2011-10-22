@@ -1,19 +1,6 @@
 = render :partial => "shared/top_nav"
 %div#content
   
-  %h2 Users
-  %table
-    %tr
-      %th Username
-      %th Last Login
-      %th First Login
-      %th Projects Viewed
-      %th Pageviews
-    - @users.sort{|x,y| y.updated_at <=> x.updated_at }.each do |user|
-      %tr
-        %td=user.username
-        %td=user.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
-        %td=user.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
-        %td=user.projects_viewed
-        %td=user.pageviews
-  
+  %ul
+    %li= link_to 'Users', admin_users_path
+    %li= link_to 'Projects', admin_projects_path
