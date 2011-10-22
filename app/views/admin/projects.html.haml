@@ -15,7 +15,15 @@
         %td=project.tracker_id
         %td=project.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
         %td=project.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
-        %td=project.tracks.select{|t| !t.enabled.nil? and t.enabled }.map{|t| t.label}.count
+        %td
+          - @cur_tracks = project.tracks.select{|t| !t.enabled.nil? and t.enabled }.map{|t| t.label}
+          = @cur_tracks.count
+          - if @cur_tracks.count > 0
+            = render :partial => "projects/tooltip", :locals => { :tooltip_text => @cur_tracks.join(', ') }
         %td=StoriesSnapshot.find_all_by_tracker_project_id(project.tracker_id).count
-        %td=User.find(:all, :conditions => ["projects_viewed like ?", "%#{project.tracker_id}%"]).count
+        %td
+          - @users = User.find(:all, :conditions => ["projects_viewed like ?", "%#{project.tracker_id}%"])
+          = @users.count
+          - if @users.count > 0
+            = render :partial => "projects/tooltip", :locals => { :tooltip_text => @users.map{|x| x.username}.join(', ') }
   
