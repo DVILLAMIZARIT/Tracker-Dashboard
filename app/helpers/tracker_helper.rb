@@ -38,6 +38,8 @@ module TrackerHelper
       scan_for_unestimated
     end
   
+    private
+
     def scan_for_blockages
       @stories[:blocked] = ArrayOfStories.new( [] )
       
@@ -80,79 +82,92 @@ module TrackerHelper
   
   end
 
-  def get_all_projects(user)
-    Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => 1.minutes) do
-      PivotalTracker::Client.use_ssl = true
-      PivotalTracker::Client.token = user.token
-      PivotalTracker::Project.all
-    end
-  end
-
-  def get_single_project(user, project_id)
-    Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => 1.minutes) do
-      PivotalTracker::Client.use_ssl = true
-      PivotalTracker::Client.token = user.token
-      PivotalTracker::Project.find(project_id)
-    end
-  end
-
-  def get_current_and_backlog_stories(user, project_id)
-    Rails.cache.fetch("user_#{user.id}_project_#{project_id}_current_and_backlog", :expires_in => 1.minutes) do
-      project = get_single_project(user, project_id)
-      stories = PivotalTracker::Iteration.current(project).stories
-      PivotalTracker::Iteration.backlog(project).each { |x| stories = stories + x.stories }
-      stories
-    end
-  end
-
-  def split_stories_into_tracks(stories_in, tracks_in)
-    @track_all = TrackStats.new
-    @track_all.name   = "All"
-    @track_all.label  = nil
-    @track_all.goal = { :stories => "", :points => "" }
-
-    @track_other = TrackStats.new
-    @track_other.name   = "Other"
-    @track_other.label  = nil
-    @track_other.goal = { :stories => "", :points => "" }
-
-    @tracks = []
-    tracks_in.each do |track_in|
-      if track_in[:enabled]
-        cur_track = TrackStats.new
-        cur_track.name   = track_in[:label]
-        cur_track.label  = track_in[:label]
-        cur_track.goal = { :points => track_in[:goal_points], :stories => track_in[:goal_stories] }
-        @tracks.push cur_track
+  class TrackerProjects
+    def self.fetch(user)
+      Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => 1.minutes) do
+        PivotalTracker::Client.use_ssl = true
+        PivotalTracker::Client.token = user.token
+        PivotalTracker::Project.all
       end
     end
+  end
 
-    stories = { :done      => ArrayOfStories.new( stories_in.select{ |x| x.current_state == 'accepted'  } ),
-                :wip       => ArrayOfStories.new( stories_in.select{ |x| x.current_state == 'delivered' } + 
-                                                  stories_in.select{ |x| x.current_state == 'finished'  } + 
-                                                  stories_in.select{ |x| x.current_state == 'started'   } + 
-                                                  stories_in.select{ |x| x.current_state == 'rejected'  } ),
-                :scheduled => ArrayOfStories.new( stories_in.select{ |x| x.current_state == 'unstarted' } ) }
+  class TrackerProject
+    def self.fetch(user, project_id)
+      Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => 1.minutes) do
+        PivotalTracker::Client.use_ssl = true
+        PivotalTracker::Client.token = user.token
+        PivotalTracker::Project.find(project_id)
+      end
+    end
+  end
 
-    [:done, :wip, :scheduled].each do |key|
-      stories[key].each do |story|
-        @track_all.stories[key].push story
-        found = false
-        @tracks.each do |track|
-          if !found and (story.labels || "").match(track.label)
-            track.stories[key].push story
-            found = true
-          end
+  class TrackerProjectBacklog
+    attr_accessor :stories
+
+    def self.fetch(user, project_id)
+      backlog = TrackerProjectBacklog.new
+
+      backlog.stories = Rails.cache.fetch("user_#{user.id}_project_#{project_id}_backlog", :expires_in => 1.minutes) do
+        project = TrackerProject.fetch(user, project_id)
+        stories = PivotalTracker::Iteration.current(project).stories + 
+                  PivotalTracker::Iteration.backlog(project).map{ |x| x.stories }.flatten
+        stories
+      end
+
+      return backlog
+    end
+
+    def split_into_tracks(tracks_in)
+      @track_all = TrackStats.new
+      @track_all.name   = "All"
+      @track_all.label  = nil
+      @track_all.goal = { :stories => "", :points => "" }
+  
+      @track_other = TrackStats.new
+      @track_other.name   = "Other"
+      @track_other.label  = nil
+      @track_other.goal = { :stories => "", :points => "" }
+  
+      @tracks = []
+      tracks_in.each do |track_in|
+        if track_in[:enabled]
+          cur_track = TrackStats.new
+          cur_track.name   = track_in[:label]
+          cur_track.label  = track_in[:label]
+          cur_track.goal = { :points => track_in[:goal_points], :stories => track_in[:goal_stories] }
+          @tracks.push cur_track
         end
-        @track_other.stories[key].push story if !found
       end
+  
+      stories = { :done      => ArrayOfStories.new( self.stories.select{ |x| x.current_state == 'accepted'  } ),
+                  :wip       => ArrayOfStories.new( self.stories.select{ |x| x.current_state == 'delivered' } + 
+                                                    self.stories.select{ |x| x.current_state == 'finished'  } + 
+                                                    self.stories.select{ |x| x.current_state == 'started'   } + 
+                                                    self.stories.select{ |x| x.current_state == 'rejected'  } ),
+                  :scheduled => ArrayOfStories.new( self.stories.select{ |x| x.current_state == 'unstarted' } ) }
+  
+      [:done, :wip, :scheduled].each do |key|
+        stories[key].each do |story|
+          @track_all.stories[key].push story
+          found = false
+          @tracks.each do |track|
+            if !found and (story.labels || "").match(track.label)
+              track.stories[key].push story
+              found = true
+            end
+          end
+          @track_other.stories[key].push story if !found
+        end
+      end
+  
+      ([@track_all]+@tracks+[@track_other]).each do |track|
+        track.postprocess
+      end
+  
+      return [@track_all] + @tracks.sort{ |x,y| x.name <=> y.name } + [@track_other]
     end
 
-    ([@track_all]+@tracks+[@track_other]).each do |track|
-      track.postprocess
-    end
-
-    return [@track_all] + @tracks.sort{ |x,y| x.name <=> y.name } + [@track_other]
   end
 
 end

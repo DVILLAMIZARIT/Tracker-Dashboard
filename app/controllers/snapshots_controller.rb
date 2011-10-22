@@ -2,31 +2,28 @@ class SnapshotsController < ApplicationController
   include TrackerHelper
 
   def index
-    return if redirect_if_not_signed_in
-
-    @project_id  = params[:project_id]
+    @project_id  = params[:project_id].to_i
 
     @snapshots = StoriesSnapshot.find_all_by_tracker_project_id(@project_id, :order => "created_at DESC")
-
     if @snapshots.empty?
-      @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
-      @snapshots = [ StoriesSnapshot.create_from_tracker_stories(@project_id, @cur_stories) ]
+      backlog = TrackerProjectBacklog.fetch(current_user, @project_id)
+      @snapshots = [ StoriesSnapshot.create_from_tracker_stories(@project_id, backlog.stories) ]
     end
 
     redirect_to project_snapshot_path(@project_id, @snapshots.first.id)
   end
 
   def show
-    return if redirect_if_not_signed_in
     current_user.increment_pageviews
 
-    @project_id  = params[:project_id]
-    @snapshot_id = params[:id]
-    current_user.viewed_project(@project_id.to_i)
+    @project_id  = params[:project_id].to_i
+    @snapshot_id = params[:id].to_i
+    current_user.viewed_project(@project_id)
 
-    @projects = get_all_projects(current_user)
-    @project = get_single_project(current_user, @project_id.to_i)
-    @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
+    @projects = TrackerProjects.fetch(current_user)
+    @project = TrackerProject.fetch(current_user, @project_id)
+    backlog = TrackerProjectBacklog.fetch(current_user, @project_id)
+    @cur_stories = backlog.stories
 
     @snapshots = StoriesSnapshot.find_all_by_tracker_project_id(@project_id, :order => "created_at DESC")
     @snapshot = StoriesSnapshot.find(@snapshot_id)
@@ -34,13 +31,10 @@ class SnapshotsController < ApplicationController
   end
 
   def new
-    return if redirect_if_not_signed_in
+    @project_id  = params[:project_id].to_i
 
-    @project_id  = params[:project_id]
-
-    @cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
-
-    @snapshot = StoriesSnapshot.create_from_tracker_stories(@project_id, @cur_stories)
+    backlog = TrackerProjectBacklog.fetch(current_user, @project_id)
+    @snapshot = StoriesSnapshot.create_from_tracker_stories(@project_id, backlog.stories)
 
     redirect_to project_snapshot_path(@project_id, @snapshot.id)
   end

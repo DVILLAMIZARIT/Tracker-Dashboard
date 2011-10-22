@@ -2,57 +2,51 @@ class ProjectsController < ApplicationController
   include TrackerHelper
 
   def index
-    return if redirect_if_not_signed_in
-    if current_user.nil?
-      Logger.info "current user is nil!"
-    end
     current_user.increment_pageviews
 
-    @projects = get_all_projects(current_user)
+    @projects = TrackerProjects.fetch(current_user)
   end
 
   def show
-    return if redirect_if_not_signed_in
     current_user.increment_pageviews
 
-    @project_id = params[:id]
-    current_user.viewed_project(@project_id.to_i)
+    @project_id = params[:id].to_i
+    current_user.viewed_project(@project_id)
 
-    @projects = get_all_projects(current_user)
-    @project = get_single_project(current_user, @project_id.to_i)
+    @projects = TrackerProjects.fetch(current_user)
+    @project = TrackerProject.fetch(current_user, @project_id)
+    backlog = TrackerProjectBacklog.fetch(current_user, @project_id) 
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || 
+                        ProjectSettings.create(@project_id, backlog.stories)
+    @tracks = backlog.split_into_tracks(@project_settings.tracks)
 
-    @project_settings = ProjectSettings.find_by_tracker_id(@project_id.to_i) || ProjectSettings.create(@project_id.to_i, get_current_and_backlog_stories(current_user, @project_id.to_i))
-
-    if @project_settings.tracks.count > 0
+    if @project_settings.tracks.count > 0 #FIXME: can't this go in the view??
       t = @project_settings.tracks.map { |x| x.updated_at }.sort.last
       @goal_date = " (As of #{t.mon}/#{t.mday})"
     else
       @goal_date = ""
     end
-    
-    cur_stories = get_current_and_backlog_stories(current_user, @project_id.to_i)
-    @tracks = split_stories_into_tracks(cur_stories, @project_settings.tracks)
 
   end
 
   def edit
-    return if redirect_if_not_signed_in
     current_user.increment_pageviews
 
-    @project_id = params[:id]
-    current_user.viewed_project(@project_id.to_i)
+    @project_id = params[:id].to_i
+    current_user.viewed_project(@project_id)
 
-    @projects = get_all_projects(current_user)
-    @project = get_single_project(current_user, @project_id.to_i)
+    @projects = TrackerProjects.fetch(current_user)
+    @project = TrackerProject.fetch(current_user, @project_id)
 
-    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || ProjectSettings.create(@project_id, get_current_and_backlog_stories(current_user, @project_id.to_i))
-    @project_settings.create_tracks_for_new_labels(get_current_and_backlog_stories(current_user, @project_id.to_i))
+    backlog = TrackerProjectBacklog.fetch(current_user, @project_id) 
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || 
+                        ProjectSettings.create(@project_id, backlog.stories)
+
+    @project_settings.create_tracks_for_new_labels(backlog.stories)
     @project_settings.tracks.build
   end
 
   def update
-    return if redirect_if_not_signed_in
-
     @project_settings = ProjectSettings.find_by_tracker_id(params[:id])
     @project_settings.update_attributes(params[:project_settings]) # FIXME: CHECK FOR ERRORS
 
