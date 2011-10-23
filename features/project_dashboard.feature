@@ -12,15 +12,15 @@ Feature: User sees a dashboard for a project
   Scenario: User sees the current iteration's stats 
     Then I should see "1" stories and "2" points with "done" status in the "All" track
     And I should see "2" stories and "4" points with "wip" status in the "All" track
-    And I should see "5" stories and "7" points with "scheduled" status in the "All" track
-    And I should see "0" stories and "0" points with "blocked" status in the "All" track
-    And I should see "0" stories and "0" points with "unestimated" status in the "All" track
+    And I should see "7" stories and "9" points with "scheduled" status in the "All" track
+    And I should see "2" stories and "2" points with "blocked" status in the "All" track
+    And I should see "1" stories and "0" points with "unestimated" status in the "All" track
 
   Scenario: User sees tracks for All and Other, as well as some random, initial tracks (to show how they work).
     Then I should see a track named "All"
     And I should see a track named "label 2"
     And I should see a track named "label 4"
-    And I should see a track named "label 3"
+    And I should see a track named "label 1"
     And I should see a track named "Other"
 
   Scenario: User sees all labels when configuring tracks
@@ -51,7 +51,7 @@ Feature: User sees a dashboard for a project
     And I fill in "project_settings[red_flags_unplanned_label]" with "label 2"
     And I fill in "project_settings[red_flags_unmet_label]" with "label 3"
     And I press "Update"
-    Then I should see "2" stories and "4" points with "blocked" status in the "All" track
+    Then I should see "3" stories and "4" points with "blocked" status in the "All" track
     And I should see "3" stories and "6" points with "unplanned" status in the "All" track
     And I should see "1" stories and "2" points with "unmet_reqs" status in the "All" track
 

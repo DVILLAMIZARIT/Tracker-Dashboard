@@ -85,22 +85,22 @@ module TrackerHelper
   class TrackerProjects
     def self.fetch(user)
       time_to_live = (Rails.env == "production") ? 1.minutes : 1.days
-      Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => time_to_live) do
+      #Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => time_to_live) do
         PivotalTracker::Client.use_ssl = true
         PivotalTracker::Client.token = user.token
         PivotalTracker::Project.all
-      end
+      #end
     end
   end
 
   class TrackerProject
     def self.fetch(user, project_id)
       time_to_live = (Rails.env == "production") ? 1.minutes : 1.days
-      Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => time_to_live) do
+      #Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => time_to_live) do
         PivotalTracker::Client.use_ssl = true
         PivotalTracker::Client.token = user.token
         PivotalTracker::Project.find(project_id)
-      end
+      #end
     end
   end
 
@@ -111,12 +111,13 @@ module TrackerHelper
       backlog = TrackerProjectBacklog.new
 
       time_to_live = (Rails.env == "production") ? 1.minutes : 1.days
-      backlog.stories = Rails.cache.fetch("user_#{user.id}_project_#{project_id}_backlog", :expires_in => time_to_live) do
+      #backlog.stories = Rails.cache.fetch("user_#{user.id}_project_#{project_id}_backlog", :expires_in => time_to_live) do
         project = TrackerProject.fetch(user, project_id)
         stories = PivotalTracker::Iteration.current(project).stories + 
                   PivotalTracker::Iteration.backlog(project).map{ |x| x.stories }.flatten
         stories
-      end
+      backlog.stories = stories
+      #end
 
       return backlog
     end

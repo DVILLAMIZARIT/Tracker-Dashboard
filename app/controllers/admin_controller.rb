@@ -12,6 +12,11 @@ class AdminController < ApplicationController
     @projects = ProjectSettings.all
   end
 
+  def cache_clear
+    Rails.cache.clear
+    redirect_to admin_path
+  end
+
 private
 
   def require_admin_access

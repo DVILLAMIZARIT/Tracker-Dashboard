@@ -31,7 +31,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'launchy'
-  gem 'jasmine'
+  #gem 'jasmine'
   gem 'factory_girl_rails'
   gem 'fakeweb'
 end

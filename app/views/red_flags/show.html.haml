@@ -1,19 +1,19 @@
 - track_all = @tracks.first
 - no_red_flags = true
 - if track_all.stories[:blocked].count > 0
-  %p(style='margin:0')= "#{track_all.stories[:blocked].count} blocked stories"
+  %p(style='margin:0')= "#{pluralize(track_all.stories[:blocked].count, 'blocked story')}"
   - no_red_flags = false
 
 - if track_all.stories[:unestimated].count > 0
-  %p(style='margin:0')= "#{track_all.stories[:unestimated].count} unestimated stories"
+  %p(style='margin:0')= "#{pluralize(track_all.stories[:unestimated].count, 'unestimated story')}"
   - no_red_flags = false
 
 - if track_all.stories[:unplanned].count > 0
-  %p(style='margin:0')= "#{track_all.stories[:unplanned].count} stories crept into iteration post-planning"
+  %p(style='margin:0')= "#{pluralize(track_all.stories[:unplanned].count, 'story')} crept into iteration post-planning"
   - no_red_flags = false
 
 - if track_all.stories[:unmet_reqs].count > 0
-  %p(style='margin:0')= "#{track_all.stories[:unmet_reqs].count} stories promised but not shipped"
+  %p(style='margin:0')= "#{pluralize(track_all.stories[:unmet_reqs].count, 'story')} promised but not shipped"
   - no_red_flags = false
 
 - if no_red_flags 

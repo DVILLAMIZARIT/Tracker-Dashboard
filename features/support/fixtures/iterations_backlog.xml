@@ -150,10 +150,39 @@
         <project_id type="integer">102622</project_id>
         <story_type>feature</story_type>
         <url>http://www.pivotaltracker.com/story/show/4490874</url>
+        <estimate type="integer">-1</estimate>
+        <current_state>unstarted</current_state>
+        <labels>label 1</labels>
+        <description></description>
+        <name>Movable Story (5)</name>
+        <requested_by>Test Suite Access</requested_by>
+        <created_at type="datetime">2010/07/29 18:12:31 UTC</created_at>
+        <updated_at type="datetime">2010/07/29 19:13:12 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">449087400</id>
+        <project_id type="integer">102622</project_id>
+        <story_type>feature</story_type>
+        <url>http://www.pivotaltracker.com/story/show/449087400</url>
+        <estimate type="integer">2</estimate>
+        <current_state>unstarted</current_state>
+        <labels>blocked</labels>
+        <description></description>
+        <name>Movable Story (5)</name>
+        <requested_by>Test Suite Access</requested_by>
+        <created_at type="datetime">2010/07/29 18:12:31 UTC</created_at>
+        <updated_at type="datetime">2010/07/29 19:13:12 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">449087401</id>
+        <project_id type="integer">102622</project_id>
+        <story_type>feature</story_type>
+        <url>http://www.pivotaltracker.com/story/show/449087401</url>
         <estimate type="integer">0</estimate>
         <current_state>unstarted</current_state>
+        <labels>blocked</labels>
         <description></description>
-        <name>Movable Story</name>
+        <name>Movable Story (5)</name>
         <requested_by>Test Suite Access</requested_by>
         <created_at type="datetime">2010/07/29 18:12:31 UTC</created_at>
         <updated_at type="datetime">2010/07/29 19:13:12 UTC</updated_at>

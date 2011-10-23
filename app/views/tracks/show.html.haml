@@ -1,10 +1,10 @@
 - no_goals = true
 - @tracks[1..-2].each do |track|
   - if track.goal[:stories] and track.goal[:stories].to_i > 0
-    %p(style='margin:0')= "#{track.name}: #{track.stories[:done].count} of #{track.goal[:stories]} stories done"
+    %p(style='margin:0')= "#{track.name}: #{track.stories[:done].count} of #{pluralize(track.goal[:stories], 'story')} done"
     - no_goals = false
   - if track.goal[:points] and track.goal[:points].to_i > 0
-    %p(style='margin:0')= "#{track.name}: #{track.stories[:done].points} of #{track.goal[:points]} points done"
+    %p(style='margin:0')= "#{track.name}: #{track.stories[:done].points} of #{pluralize(track.goal[:points], 'point')} done"
     - no_goals = false
 - if no_goals
   %p(style='margin:0')

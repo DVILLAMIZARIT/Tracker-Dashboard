@@ -21,6 +21,7 @@ TrackerDashboard::Application.routes.draw do
   get    "admin", :to => "admin#index", :as => :admin
   get    "admin/users", :to => "admin#users", :as => :admin_users
   get    "admin/projects", :to => "admin#projects", :as => :admin_projects
+  get    "admin/cache_clear", :to => "admin#cache_clear", :as => :admin_cache_clear
 
   get    "home/index", :to => "home#index", :as => :login
   match  "/login", :to => "home#index"

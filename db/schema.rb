@@ -23,21 +23,21 @@ ActiveRecord::Schema.define(:version => 20111022195349) do
   end
 
   create_table "stories", :force => true do |t|
-    t.string    "story_type"
-    t.string    "labels"
-    t.string    "name"
-    t.string    "current_state"
-    t.string    "url"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "stories_snapshot_id"
-    t.integer   "estimate"
+    t.string   "story_type"
+    t.string   "labels"
+    t.string   "name"
+    t.string   "current_state"
+    t.integer  "estimate",            :limit => 255
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "stories_snapshot_id"
   end
 
   create_table "stories_snapshots", :force => true do |t|
-    t.integer   "tracker_project_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.integer  "tracker_project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tracks", :force => true do |t|
