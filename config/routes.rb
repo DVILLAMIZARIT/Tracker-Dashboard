@@ -6,11 +6,13 @@ TrackerDashboard::Application.routes.draw do
   match  "/signin",  :to => "sessions#create"
   match  "/signout", :to => "sessions#destroy"
 
-  resources :projects, :only => [:index, :show, :edit, :update] do
+  resources :projects, :only => [:index, :show] do
     resources :snapshots, :only => [:index, :show, :new]
   end
   get    "/projects/:id/red_flags/edit",   :to => "red_flags#edit",   :as => :edit_project_red_flags
   put    "/projects/:id/red_flags/update", :to => "red_flags#update", :as => :update_project_red_flags
+  get    "/projects/:id/tracks/edit",   :to => "tracks#edit",   :as => :edit_project_tracks
+  put    "/projects/:id/tracks/update", :to => "tracks#update", :as => :update_project_tracks
 
   get    "project/show", :to => "projects#index" # This is a friendly redirect from the old scheme to the new scheme
 

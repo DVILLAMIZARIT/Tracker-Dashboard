@@ -1,4 +1,4 @@
-class RedFlagsController < ApplicationController
+class TracksController < ApplicationController
   include TrackerHelper
 
   after_filter :update_user_analytics
@@ -18,14 +18,12 @@ class RedFlagsController < ApplicationController
   end
 
   def update
-    @project_id = params[:id].to_i
-
-    @project_settings = ProjectSettings.find_by_tracker_id(@project_id)
+    @project_settings = ProjectSettings.find_by_tracker_id(params[:id])
     @project_settings.update_attributes(params[:project_settings])
 
-    redirect_to project_path(@project_id)
+    redirect_to project_path(params[:id])
   end
-
+ 
 private
 
   def update_user_analytics
@@ -38,4 +36,3 @@ private
   end
 
 end
-
