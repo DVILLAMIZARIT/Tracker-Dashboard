@@ -3,6 +3,17 @@ class RedFlagsController < ApplicationController
 
   after_filter :update_user_analytics
 
+  def show
+    @project_id = params[:id].to_i
+
+    @projects = TrackerProjects.fetch(current_user)
+    @project = TrackerProject.fetch(current_user, @project_id)
+    backlog = TrackerProjectBacklog.fetch(current_user, @project_id) 
+    @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || 
+                        ProjectSettings.create(@project_id, backlog.stories)
+    @tracks = backlog.split_into_tracks(@project_settings.tracks, @project_settings)
+  end
+
   def edit
     @project_id = params[:id].to_i
 

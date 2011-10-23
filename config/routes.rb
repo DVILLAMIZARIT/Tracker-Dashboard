@@ -9,8 +9,10 @@ TrackerDashboard::Application.routes.draw do
   resources :projects, :only => [:index, :show] do
     resources :snapshots, :only => [:index, :show, :new]
   end
+  get    "/projects/:id/red_flags",   :to => "red_flags#show",   :as => :project_red_flags
   get    "/projects/:id/red_flags/edit",   :to => "red_flags#edit",   :as => :edit_project_red_flags
   put    "/projects/:id/red_flags/update", :to => "red_flags#update", :as => :update_project_red_flags
+  get    "/projects/:id/tracks",   :to => "tracks#show",   :as => :project_tracks
   get    "/projects/:id/tracks/edit",   :to => "tracks#edit",   :as => :edit_project_tracks
   put    "/projects/:id/tracks/update", :to => "tracks#update", :as => :update_project_tracks
 

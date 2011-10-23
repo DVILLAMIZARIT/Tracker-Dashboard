@@ -131,6 +131,16 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
+When /^I wait until all Ajax requests are complete$/ do
+  #wait_until do
+  #  page.evaluate_script('$.active') == 0
+  #end
+  wait_until(3) do
+    page.has_content?("Loading...") == false
+  end
+  #sleep 2
+end
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)

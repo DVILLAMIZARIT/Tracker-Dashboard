@@ -2,8 +2,18 @@
 %div#content
   
   %h3 My Projects
-  %ul
+  %table
+    %tr
+      %th Project
+      %th Goals
+      %th Red Flags
     - @projects.each do |project|
-      %li= link_to project.name, project_path(project.id)
+      %tr
+        %td(style='vertical-align:top')
+          = link_to project.name, project_path(project.id)
+        %td.project-goals{ :data => { :project_id =>"#{project.id}" } }
+          %p Loading...
+        %td.project-red-flags{ :data => { :project_id =>"#{project.id}" } }
+          %p Loading...
   
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'

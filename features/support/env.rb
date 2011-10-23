@@ -50,4 +50,4 @@ end
 #   end
 #
 
-FakeWeb.allow_net_connect = false
+#FakeWeb.allow_net_connect = false

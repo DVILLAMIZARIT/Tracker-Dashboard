@@ -1,0 +1,12 @@
+- no_goals = true
+- @tracks[1..-2].each do |track|
+  - if track.goal[:stories] and track.goal[:stories].to_i > 0
+    %p(style='margin:0')= "#{track.name}: #{track.stories[:done].count} of #{track.goal[:stories]} stories done"
+    - no_goals = false
+  - if track.goal[:points] and track.goal[:points].to_i > 0
+    %p(style='margin:0')= "#{track.name}: #{track.stories[:done].points} of #{track.goal[:points]} points done"
+    - no_goals = false
+- if no_goals
+  %p(style='margin:0')
+    = surround "You haven't ", " any goals yet on this project." do
+      = link_to 'set up', edit_project_tracks_path(@project_id)

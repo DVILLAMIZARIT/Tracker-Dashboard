@@ -1,0 +1,20 @@
+- track_all = @tracks.first
+- no_red_flags = true
+- if track_all.stories[:blocked].count > 0
+  %p(style='margin:0')= "#{track_all.stories[:blocked].count} blocked stories"
+  - no_red_flags = false
+
+- if track_all.stories[:unestimated].count > 0
+  %p(style='margin:0')= "#{track_all.stories[:unestimated].count} unestimated stories"
+  - no_red_flags = false
+
+- if track_all.stories[:unplanned].count > 0
+  %p(style='margin:0')= "#{track_all.stories[:unplanned].count} stories crept into iteration post-planning"
+  - no_red_flags = false
+
+- if track_all.stories[:unmet_reqs].count > 0
+  %p(style='margin:0')= "#{track_all.stories[:unmet_reqs].count} stories promised but not shipped"
+  - no_red_flags = false
+
+- if no_red_flags 
+  %p(style='margin:0;color:#808080') No red flags
