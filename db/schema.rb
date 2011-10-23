@@ -11,12 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021130906) do
+ActiveRecord::Schema.define(:version => 20111022195349) do
 
   create_table "project_settings", :force => true do |t|
     t.integer   "tracker_id"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.string    "red_flags_blocked_label",   :default => "blocked",        :null => false
+    t.string    "red_flags_unplanned_label", :default => "added_midweek",  :null => false
+    t.string    "red_flags_unmet_label",     :default => "ship_this_week", :null => false
   end
 
   create_table "stories", :force => true do |t|

@@ -1,0 +1,21 @@
+%div#top(style='height:0;width:0;')
+= render :partial => "shared/top_nav", :locals => { :project => @project, :projects => @projects, :active_tab => "current" }
+
+%div#content
+  
+  %h3 What labels do you use for flagging these types of stories?
+  = form_for @project_settings, :url => update_project_red_flags_path(@project.id) do |f|
+    %table
+      %tr
+        %td(style='text-align:left;') Blocked stories
+        %td= f.text_field :red_flags_blocked_label
+      %tr
+        %td(style='text-align:left;') Unplanned stories crept into this iteration 
+        %td= f.text_field :red_flags_unplanned_label
+      %tr
+        %td(style='text-align:left;') Stories you've committed to getting done this iteration
+        %td= f.text_field :red_flags_unmet_label
+      %tr
+        %td
+        %td= f.submit "Update"
+    

@@ -3,7 +3,7 @@
 
 %div#content
 
-  = render :partial => "tracks",  :locals => { :tracks => @tracks, :project_settings => @project_settings } # the only reason this partial needs 'project settings' is to derive a 'goal date'.  Too tightly coupled to pass the whole thing...
+  = render :partial => "tracks",  :locals => { :tracks => @tracks, :project_settings => @project_settings } 
   
   = render :partial => "stories", :locals => { :tracks => @tracks }
 

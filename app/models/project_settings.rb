@@ -7,6 +7,9 @@ class ProjectSettings < ActiveRecord::Base
   def self.create(project_id, stories)
     ps = ProjectSettings.new
     ps.tracker_id = project_id
+    ps.red_flags_blocked_label   = "blocked"
+    ps.red_flags_unplanned_label = "added_midweek"
+    ps.red_flags_unmet_label     = "ship_this_week"
     ps.save
 
     # Find all the labels.  Also find the 3 most-common labels.  Create 

@@ -31,40 +31,40 @@ module TrackerHelper
                    :scheduled => ArrayOfStories.new([]) }
     end
   
-    def postprocess
-      scan_for_blockages
-      scan_for_surprises
-      scan_for_unmet_requirements
+    def postprocess(red_flags_labels)
+      scan_for_blockages(red_flags_labels)
+      scan_for_surprises(red_flags_labels)
+      scan_for_unmet_requirements(red_flags_labels)
       scan_for_unestimated
     end
   
     private
 
-    def scan_for_blockages
+    def scan_for_blockages(red_flags_labels)
       @stories[:blocked] = ArrayOfStories.new( [] )
       
       (@stories[:done] + @stories[:wip] + @stories[:scheduled]).each do |story|
-        if (story.labels || "").match('blocked')
+        if (story.labels || "").match(red_flags_labels.red_flags_blocked_label)
           @stories[:blocked].push story
         end
       end
     end
   
-    def scan_for_surprises
+    def scan_for_surprises(red_flags_labels)
       @stories[:unplanned] = ArrayOfStories.new( [] )
       
       (@stories[:done] + @stories[:wip] + @stories[:scheduled]).each do |story|
-        if (story.labels || "").match('added_midweek')
+        if (story.labels || "").match(red_flags_labels.red_flags_unplanned_label)
           @stories[:unplanned].push story
         end
       end
     end
   
-    def scan_for_unmet_requirements
+    def scan_for_unmet_requirements(red_flags_labels)
       @stories[:unmet_reqs] = ArrayOfStories.new( [] )
       
       (@stories[:wip] + @stories[:scheduled]).each do |story|
-        if (story.labels || "").match('!shipthisweek!')
+        if (story.labels || "").match(red_flags_labels.red_flags_unmet_label)
           @stories[:unmet_reqs].push story
         end
       end
@@ -84,7 +84,8 @@ module TrackerHelper
 
   class TrackerProjects
     def self.fetch(user)
-      Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => 1.minutes) do
+      time_to_live = (Rails.env == "production") ? 1.minutes : 1.days
+      Rails.cache.fetch("user_#{user.id}_all_projects", :expires_in => time_to_live) do
         PivotalTracker::Client.use_ssl = true
         PivotalTracker::Client.token = user.token
         PivotalTracker::Project.all
@@ -94,7 +95,8 @@ module TrackerHelper
 
   class TrackerProject
     def self.fetch(user, project_id)
-      Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => 1.minutes) do
+      time_to_live = (Rails.env == "production") ? 1.minutes : 1.days
+      Rails.cache.fetch("user_#{user.id}_project_#{project_id}", :expires_in => time_to_live) do
         PivotalTracker::Client.use_ssl = true
         PivotalTracker::Client.token = user.token
         PivotalTracker::Project.find(project_id)
@@ -108,7 +110,8 @@ module TrackerHelper
     def self.fetch(user, project_id)
       backlog = TrackerProjectBacklog.new
 
-      backlog.stories = Rails.cache.fetch("user_#{user.id}_project_#{project_id}_backlog", :expires_in => 1.minutes) do
+      time_to_live = (Rails.env == "production") ? 1.minutes : 1.days
+      backlog.stories = Rails.cache.fetch("user_#{user.id}_project_#{project_id}_backlog", :expires_in => time_to_live) do
         project = TrackerProject.fetch(user, project_id)
         stories = PivotalTracker::Iteration.current(project).stories + 
                   PivotalTracker::Iteration.backlog(project).map{ |x| x.stories }.flatten
@@ -118,7 +121,7 @@ module TrackerHelper
       return backlog
     end
 
-    def split_into_tracks(tracks_in)
+    def split_into_tracks(tracks_in, red_flag_labels)
       @track_all = TrackStats.new
       @track_all.name   = "All"
       @track_all.label  = nil
@@ -162,7 +165,7 @@ module TrackerHelper
       end
   
       ([@track_all]+@tracks+[@track_other]).each do |track|
-        track.postprocess
+        track.postprocess(red_flag_labels)
       end
   
       return [@track_all] + @tracks.sort{ |x,y| x.name <=> y.name } + [@track_other]

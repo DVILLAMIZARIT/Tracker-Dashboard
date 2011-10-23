@@ -24,7 +24,8 @@ Feature: User sees a dashboard for a project
     And I should see a track named "Other"
 
   Scenario: User sees all labels when configuring tracks
-    And I follow "edit"
+    #And I edit the goals
+    And I follow "edit" within "#edit-goals"
     Then I should see a text input with value "label 1"
     Then I should see a text input with value "label 2"
     Then I should see a text input with value "label 3"
@@ -32,11 +33,27 @@ Feature: User sees a dashboard for a project
     Then I should see a text input with value "label 5"
 
   Scenario: User configures tracks
-    And I follow "edit"
+    And I follow "edit" within "#edit-goals"
     And I check "project_settings[tracks_attributes][0][enabled]"
     And I fill in "project_settings[tracks_attributes][0][goal_stories]" with "12"
     And I press "Update"
     And I should see a track named "label 1"
+
+  Scenario: Projects have default red flags labels
+    And I follow "edit labels"
+    Then I should see a text input with value "blocked"
+    And I should see a text input with value "added_midweek"
+    And I should see a text input with value "ship_this_week"
+
+  Scenario: User configures red flag labels
+    And I follow "edit labels"
+    And I fill in "project_settings[red_flags_blocked_label]" with "label 1"
+    And I fill in "project_settings[red_flags_unplanned_label]" with "label 2"
+    And I fill in "project_settings[red_flags_unmet_label]" with "label 3"
+    And I press "Update"
+    Then I should see "2" stories and "4" points with "blocked" status in the "All" track
+    And I should see "3" stories and "6" points with "unplanned" status in the "All" track
+    And I should see "1" stories and "2" points with "unmet_reqs" status in the "All" track
 
   Scenario: User sees a link to snapshots
     And I follow "Snapshots"

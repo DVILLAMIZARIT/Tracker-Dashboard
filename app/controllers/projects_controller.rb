@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
     backlog = TrackerProjectBacklog.fetch(current_user, @project_id) 
     @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || 
                         ProjectSettings.create(@project_id, backlog.stories)
-    @tracks = backlog.split_into_tracks(@project_settings.tracks)
+    @tracks = backlog.split_into_tracks(@project_settings.tracks, @project_settings)
 
   end
 
