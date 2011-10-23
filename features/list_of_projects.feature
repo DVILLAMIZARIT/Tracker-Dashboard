@@ -26,6 +26,14 @@ Feature: User sees a listing of their projects
   @javascript
   Scenario: User sees progress toward goal completion
     And I wait until all Ajax requests are complete
-    Then I should see "label 1: 2 of 5 points done"
-    And I should see "label 3: 1 of 3 points done"
+    And I follow "set up"
+    And I check "project_settings[tracks_attributes][1][enabled]"
+    And I fill in "project_settings[tracks_attributes][1][goal_stories]" with "5"
+    And I check "project_settings[tracks_attributes][2][enabled]"
+    And I fill in "project_settings[tracks_attributes][2][goal_points]" with "1"
+    And I press "Update"
+    And I go to the projects page
+    And I wait until all Ajax requests are complete
+    Then I should see "label 1: 1 of 5 stories done"
+    And I should see "label 2: 0 of 1 point done"
 
