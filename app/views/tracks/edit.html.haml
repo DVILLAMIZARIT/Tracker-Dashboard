@@ -5,7 +5,7 @@
   
   %h3 Editing Tracks &amp; Goals
   = form_for @project_settings, :url => update_project_tracks_path(@project.id) do |f|
-    %table
+    %table.pretty
       %tr
         %th Label
         %th Enabled?

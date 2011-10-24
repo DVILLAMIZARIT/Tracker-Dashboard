@@ -2,7 +2,7 @@
 %div#content
   
   %h3 My Projects
-  %table
+  %table.pretty
     %tr
       %th Project
       %th Goals
@@ -12,8 +12,8 @@
         %td(style='vertical-align:top')
           = link_to project.name, project_path(project.id)
         %td.project-goals{ :data => { :project_id =>"#{project.id}" } }
-          %p Loading...
+          Loading...
         %td.project-red-flags{ :data => { :project_id =>"#{project.id}" } }
-          %p Loading...
+          Loading...
   
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'

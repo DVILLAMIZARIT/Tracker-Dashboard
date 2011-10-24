@@ -3,9 +3,12 @@
 
 %div#content
   
-  %h3 What labels do you use for flagging these types of stories?
+  %h3 What labels do you use?
   = form_for @project_settings, :url => update_project_red_flags_path(@project.id) do |f|
-    %table
+    %table.pretty
+      %tr
+        %th Type of Story
+        %th Label
       %tr
         %td(style='text-align:left;') Blocked stories
         %td= f.text_field :red_flags_blocked_label
