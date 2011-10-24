@@ -14,6 +14,6 @@
         %td=user.username
         %td=user.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
         %td=user.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%a %D (%I:%M%p)")
-        %td=user.projects_viewed
+        %td=(user.projects_viewed || "").gsub(/,/, ', ')
         %td=user.pageviews
   
