@@ -69,6 +69,13 @@ Given /^(?:|Tracker )has a project "([^"]*)"$/ do |project_name|
                          :body => File.join('features', 'support', 'fixtures', 'iterations_backlog.xml') } ) # ???
 end
 
+When /^(?:|I )close the browser$/ do
+end
+
+When /^(?:|I )open the browser$/ do
+end
+
+
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end

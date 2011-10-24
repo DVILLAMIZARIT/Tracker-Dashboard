@@ -5,6 +5,9 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = TrackerProjects.fetch(current_user)
+    logger.info "Removed the last-project-page cookie"
+    session['last-project-page'] = nil
+    logger.info "cookie: " + (session['last-project-page'] || "")
   end
 
   def show
@@ -16,7 +19,9 @@ class ProjectsController < ApplicationController
     @project_settings = ProjectSettings.find_by_tracker_id(@project_id) || 
                         ProjectSettings.create(@project_id, backlog.stories)
     @tracks = backlog.split_into_tracks(@project_settings.tracks, @project_settings)
-
+    logger.info "Set the last-project-page cookie"
+    session['last-project-page'] = request.url
+    logger.info "cookie: " + (session['last-project-page'] || "")
   end
 
   def edit

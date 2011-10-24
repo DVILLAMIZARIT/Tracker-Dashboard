@@ -10,6 +10,8 @@ module NavigationHelpers
 
     when /^the login\s?page$/
       '/home/index'
+    when /^the homepage$/
+      '/'
     when /^the signout\s?page$/
       '/signout'
     when /^the projects\s?page$/

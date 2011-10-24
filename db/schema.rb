@@ -14,12 +14,12 @@
 ActiveRecord::Schema.define(:version => 20111022195349) do
 
   create_table "project_settings", :force => true do |t|
-    t.integer   "tracker_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "red_flags_blocked_label",   :default => "blocked",        :null => false
-    t.string    "red_flags_unplanned_label", :default => "added_midweek",  :null => false
-    t.string    "red_flags_unmet_label",     :default => "ship_this_week", :null => false
+    t.integer  "tracker_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "red_flags_blocked_label",   :default => "blocked",        :null => false
+    t.string   "red_flags_unplanned_label", :default => "added_midweek",  :null => false
+    t.string   "red_flags_unmet_label",     :default => "ship_this_week", :null => false
   end
 
   create_table "stories", :force => true do |t|
@@ -27,11 +27,11 @@ ActiveRecord::Schema.define(:version => 20111022195349) do
     t.string   "labels"
     t.string   "name"
     t.string   "current_state"
-    t.integer  "estimate",            :limit => 255
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stories_snapshot_id"
+    t.integer  "estimate"
   end
 
   create_table "stories_snapshots", :force => true do |t|
@@ -53,14 +53,14 @@ ActiveRecord::Schema.define(:version => 20111022195349) do
   add_index "tracks", ["project_settings_id"], :name => "index_tracks_on_project_settings_id"
 
   create_table "users", :force => true do |t|
-    t.string    "username"
-    t.string    "token"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "salt"
-    t.boolean   "is_admin",        :default => false
-    t.string    "projects_viewed"
-    t.integer   "pageviews"
+    t.string   "username"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "salt"
+    t.boolean  "is_admin",        :default => false
+    t.string   "projects_viewed"
+    t.integer  "pageviews"
   end
 
 end
