@@ -6,8 +6,9 @@
       %span.checkmark
     - else
       %span.exclamation
-    %p(style='margin:0; float:left; width:150px') #{track.name}: 
-    %p(style='margin:0; float:left')= "#{track.stories[:done].count} of #{pluralize(track.goal[:stories], 'story')} done"
+    %p(style='margin:0; float:left') 
+      #{track.name}: 
+      = "#{track.stories[:done].count} of #{pluralize(track.goal[:stories], 'story')} done"
     %div(style='clear:both;')
 
   - if track.goal[:points] and track.goal[:points].to_i > 0
@@ -16,9 +17,9 @@
       %span.checkmark
     - else
       %span.exclamation
-    %p(style='margin:0; float:left; width:150px') #{track.name}: 
-    %p(style='margin:0; float:left; width:150px') #{track.name}: 
-    %p(style='margin:0; float:left')= "#{track.stories[:done].points} of #{pluralize(track.goal[:points], 'point')} done"
+    %p(style='margin:0; float:left') 
+      #{track.name}: 
+      = "#{track.stories[:done].points} of #{pluralize(track.goal[:points], 'point')} done"
     %div(style='clear:both;')
 
 - if no_goals
