@@ -15,18 +15,18 @@ Feature: User sees a listing of their projects
   @javascript
   Scenario: User sees any red flags
     And I wait until all Ajax requests are complete
-    Then I should see "1 unestimated story"
-    And I should see "2 blocked stories"
+    Then I should see "1 story unestimated"
+    And I should see "2 stories blocked"
 
   @javascript
   Scenario: User sees a prompt to set up goals
     And I wait until all Ajax requests are complete
-    Then I should see "You haven't set up any goals"
+    Then I should see "Set up some goals!"
 
   @javascript
   Scenario: User sees progress toward goal completion
     And I wait until all Ajax requests are complete
-    And I follow "set up"
+    And I follow "Set up"
     And I check "project_settings[tracks_attributes][1][enabled]"
     And I fill in "project_settings[tracks_attributes][1][goal_stories]" with "5"
     And I check "project_settings[tracks_attributes][2][enabled]"
