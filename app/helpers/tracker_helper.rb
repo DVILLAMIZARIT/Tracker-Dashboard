@@ -86,7 +86,7 @@ module TrackerHelper
     def self.get_time_to_live
       case Rails.env
       when "production"
-        1.minutes
+        2.minutes
       when "development"
         10.minutes
       else
