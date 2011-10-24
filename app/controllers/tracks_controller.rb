@@ -1,7 +1,8 @@
 class TracksController < ApplicationController
   include TrackerHelper
 
-  after_filter :update_user_analytics
+  after_filter      :update_user_analytics
+  skip_after_filter :update_user_analytics, :only => [:show]
 
   def show
     @project_id = params[:id].to_i
