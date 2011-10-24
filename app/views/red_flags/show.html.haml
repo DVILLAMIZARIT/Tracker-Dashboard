@@ -4,24 +4,32 @@
 - if track_all.stories[:blocked].count > 0
   - no_red_flags = false
   %p(style='margin:0')
-    = link_to pluralize(track_all.stories[:blocked].count, 'blocked story'), project_path(@project_id, :anchor => 'All_blocked')
+    %span.exclamation
+    = link_to pluralize(track_all.stories[:blocked].count, 'story'), project_path(@project_id, :anchor => 'All_blocked')
+    blocked
 
 - if track_all.stories[:unestimated].count > 0
   - no_red_flags = false
   %p(style='margin:0')
-    = link_to pluralize(track_all.stories[:unestimated].count, 'unestimated story'), project_path(@project_id, :anchor => 'All_unestimated')
+    %span.exclamation
+    = link_to pluralize(track_all.stories[:unestimated].count, 'story'), project_path(@project_id, :anchor => 'All_unestimated')
+    unestimated
 
 - if track_all.stories[:unplanned].count > 0
   - no_red_flags = false
   %p(style='margin:0')
+    %span.exclamation
     = link_to pluralize(track_all.stories[:unplanned].count, 'story'), project_path(@project_id, :anchor => 'All_unplanned')
     crept into iteration post-planning
 
 - if track_all.stories[:unmet_reqs].count > 0
   - no_red_flags = false
   %p(style='margin:0')
+    %span.exclamation
     = link_to pluralize(track_all.stories[:unmet_reqs].count, 'story'), project_path(@project_id, :anchor => 'All_unmet_reqs')
     promised but not shipped
 
 - if no_red_flags 
-  %p(style='margin:0') No red flags
+  %p(style='margin:0') 
+    %span.checkmark
+    All good.

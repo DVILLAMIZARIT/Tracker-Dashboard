@@ -1,11 +1,33 @@
 @import "colors"
 
+@mixin regulartable
+  margin: 0
+  padding: 0
+  tr
+    th, td
+      margin: 0
+      padding: 0
+  margin-left: -10px
+  border-spacing: 10px
+
+table.regular
+  @include regulartable
+
 table.pretty
+  margin-left: -10px
   border-spacing: 10px
   tr
+    td
+      margin: 0
+      padding: 0
+      margin-top: 5px
+      padding-right: 10px
+      padding-bottom: 5px
     th
       color: $sprawl-orange-dark
       border-bottom: 3px solid $sprawl-orange-light
     td
       vertical-align: top
 
+  table.regular
+    @include regulartable
