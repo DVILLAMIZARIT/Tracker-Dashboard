@@ -4,7 +4,8 @@ Image1.src = "/assets/animated_loading.gif";
 
 $(document).ready(function(){
 
-  $("td.project-goals").each(function(index) {
+  $("td.project-goals.needs-ajax").each(function(index) {
+    $(this).removeClass('needs-ajax');
     var project_id = $(this).attr("data-project_id");
     var that = $(this)
     $.ajax({
@@ -19,7 +20,8 @@ $(document).ready(function(){
     });
   });
 
-  $("td.project-red-flags").each(function(index) {
+  $("td.project-red-flags.needs-ajax").each(function(index) {
+    $(this).removeClass('needs-ajax');
     var project_id = $(this).attr("data-project_id");
     var that = $(this)
     $.ajax({
