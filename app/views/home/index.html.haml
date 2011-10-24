@@ -1,14 +1,15 @@
 = render :partial => "shared/top_nav", :locals => {  }
 
-%div#promo(style='padding:25px;float:left')
-  %b(style='font-size:110%') Manage (enterprise!) large projects in Pivotal Tracker
-  %ul
-    %li See progress across parallel tracks of development
-    %li Snapshot your backlog and watch how stories progress
+%div#promo(style='padding-left:30px; padding-top:5px; float:left')
+  %p(style='font-weight: bold; font-size:150%') Monitor goals and red flags across projects
   %p
-    =image_tag 'tracker_screenshot.png', {:height=>"243px", :width=>"600px"}
+    =image_tag 'list_of_projects.png', { :width => "#{0.65*827}px", :height => "#{0.65*119}px" }
 
-%div#login-form(style='padding:20px;float:left')
+  %p(style='margin-top: 20px; font-weight: bold; font-size:150%') Track progress across parallel tracks
+  %p
+    =image_tag 'project_page.png', { :width => "#{0.65*828}px", :height => "#{0.65*404}px" }
+
+%div#login-form(style='padding:35px 0 0 60px;float:left')
   =form_for :session, :url => '/signin' do |f|
     %table#dashboard
       %tbody
@@ -28,7 +29,7 @@
           %th
             Username/Email
           %td
-            =f.text_field :username
+            =f.text_field :username, { :class => 'focus' }
         %tr
           %th
             Password

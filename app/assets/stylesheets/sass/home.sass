@@ -1,8 +1,14 @@
+@import "colors"
+
 h1#homepage
   padding-top: 50px
 
 table#dashboard
+  background-color: $sprawl-orange-light
+  border: 3px solid $sprawl-orange-dark
+  padding-left: 20px
   padding-top: 10px
+  padding-bottom: 10px
   th
     text-align: right
     font-weight: normal
@@ -15,6 +21,8 @@ table#dashboard
   tr.separator 
     td
       padding-top: 12px
+  input 
+    background-color: lighten($sprawl-orange-lightest, 10%)
 
 div.sourcecode
   position: absolute

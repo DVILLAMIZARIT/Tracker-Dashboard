@@ -3,4 +3,5 @@
 
 $(document).ready(function() {
   $("img.help").tooltip();
+  $("input.focus:first").focus();
 });
