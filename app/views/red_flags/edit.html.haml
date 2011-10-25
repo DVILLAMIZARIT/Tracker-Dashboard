@@ -5,13 +5,13 @@
   
   %h3 What labels do you use?
   = form_for @project_settings, :url => update_project_red_flags_path(@project.id) do |f|
-    - @labels = [""] + @project_settings.tracks.map{ |x| x.label }
     %table.pretty
       %tr
         %th Type of Story
         %th Label
       %tr
         %td(style='text-align:left;') Blocked stories
+        - @labels = [""] + ( [@project_settings.red_flags_blocked_label] + @project_settings.tracks.map{ |x| x.label } ).uniq
         %td= f.select :red_flags_blocked_label, 
                       options_for_select(@labels, @project_settings.red_flags_blocked_label),
                        { },
@@ -20,6 +20,7 @@
                           :tabindex => @labels.find_index(@project_settings.red_flags_blocked_label)  }
       %tr
         %td(style='text-align:left;') Unplanned stories crept into this iteration 
+        - @labels = [""] + ( [@project_settings.red_flags_unplanned_label] + @project_settings.tracks.map{ |x| x.label } ).uniq
         %td= f.select :red_flags_unplanned_label, 
                       options_for_select(@labels, @project_settings.red_flags_unplanned_label),
                       { },
@@ -28,6 +29,7 @@
                         :tabindex => @labels.find_index(@project_settings.red_flags_unplanned_label) }
       %tr
         %td(style='text-align:left;') Stories you've committed to getting done this iteration
+        - @labels = [""] + ( [@project_settings.red_flags_unmet_label] + @project_settings.tracks.map{ |x| x.label } ).uniq
         %td= f.select :red_flags_unmet_label, 
                       options_for_select(@labels, @project_settings.red_flags_unmet_label), 
                       { },

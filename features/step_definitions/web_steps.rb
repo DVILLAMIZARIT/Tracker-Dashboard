@@ -115,6 +115,13 @@ When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
+When /^(?:|I )select or add "([^"]*)" from "([^"]*)"$/ do |value, field|
+  if !page.has_xpath?("//select[@name='#{field}']//option[@value='#{value}']")
+    page.execute_script(" $('select[name=\"#{field}\"]').append('<option value=\"#{value}\">#{value}</option>'); ")  
+  end
+  select(value, :from => field)
+end
+
 When /^(?:|I )check "([^"]*)"$/ do |field|
   check(field)
 end
@@ -187,6 +194,10 @@ end
 
 Then /^(?:|I )should see a text input with value "([^"]*)"$/ do |value|
   page.find(:xpath, '//input[@value="'+value+'"]').value.should == value
+end
+
+Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
+  page.find(:xpath, "//select[@name='#{field}']//option[@selected = 'selected']").value.should =~ /#{value}/
 end
 
 Then /^(?:|I )should see "([^"]*)" stories and "([^"]*)" points with "([^"]*)" status in the "([^"]*)" track$/ do |num_stories,num_points,story_status,track_name|
