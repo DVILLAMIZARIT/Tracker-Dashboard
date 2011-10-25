@@ -34,7 +34,7 @@
       this.set_default_values();
       this.form_field_jq = $(this.form_field);
       this.is_multiple = this.form_field.multiple;
-      this.allows_new_values = $(this.form_field).attr('data-allows-new-values');
+      this.allows_new_values = $(this.form_field).attr('data-allows-new-values'); // JBL START, END
       this.is_rtl = this.form_field_jq.hasClass("chzn-rtl");
       this.default_text_default = this.form_field.multiple ? "Select Some Options" : "Select an Option";
       this.set_up_html();
@@ -487,8 +487,10 @@
         this.search_field.val("");
         this.form_field_jq.trigger("change");
         return this.search_field_scale();
+      // JBL START (PORTED)
       } else {
         this.add_and_select_new_value(this, this.search_field.val());//ZZZ
+      // JBL END
       }
     };
     Chosen.prototype.result_activate = function(el) {
@@ -602,12 +604,16 @@
     };
     Chosen.prototype.no_results = function(terms) {
       var no_results_html;
+      // JBL START (PORTED)
       var button_html = '';
       if(this.allows_new_values) {
         button_html = '<button style="font-size:9px;margin:0;margin-top:-4px;height:17px;float:right">Add</button>';
       }
       no_results_html = $('<li class="no-results">' + this.results_none_found + ' "<span></span>"' + button_html + '</li>');
+      // JBL END
+
       no_results_html.find("span").first().html(terms);
+      // JBL START (PORTED)
       if(this.allows_new_values) {
         var that = this;
         no_results_html.find("button").first().click(function(evt) { 
@@ -615,8 +621,10 @@
           return false; 
         });
       }
+      // JBL END
       return this.search_results.append(no_results_html);
     };
+    // JBL START
     Chosen.prototype.add_and_select_new_value = function(that, terms) {
       $(that.form_field).append('<option value="' + terms + '">' + terms + '</option>');
       var searchText = that.search_field.val();
@@ -627,6 +635,7 @@
       that.result_select( $(that.form_field.options).last() );
       that.close_field();
     };
+    // JBL END
     Chosen.prototype.no_results_clear = function() {
       return this.search_results.find(".no-results").remove();
     };
