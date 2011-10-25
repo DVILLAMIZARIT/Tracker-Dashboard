@@ -39,12 +39,14 @@ Feature: User sees a dashboard for a project
     And I press "Update"
     And I should see a track named "label 1"
 
+  @javascript 
   Scenario: Projects have default red flags labels
     And I follow "edit labels"
     Then I should see a text input with value "blocked"
     And I should see a text input with value "added_midweek"
     And I should see a text input with value "ship_this_week"
 
+  @javascript 
   Scenario: User configures red flag labels
     And I follow "edit labels"
     And I fill in "project_settings[red_flags_blocked_label]" with "label 1"
