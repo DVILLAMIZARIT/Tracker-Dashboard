@@ -39,14 +39,12 @@ Feature: User sees a dashboard for a project
     And I press "Update"
     And I should see a track named "label 1"
 
-  @wip
   Scenario: Projects have default red flags labels
     And I follow "edit labels"
     Then "blocked" should be selected for "project_settings[red_flags_blocked_label]"
     And "added_midweek" should be selected for "project_settings[red_flags_unplanned_label]"
     And "ship_this_week" should be selected for "project_settings[red_flags_unmet_label]"
 
-  @wip
   Scenario: User configures red flag labels
     And I follow "edit labels"
     And I select "label 1" from "project_settings[red_flags_blocked_label]"
@@ -57,7 +55,6 @@ Feature: User sees a dashboard for a project
     And I should see "3" stories and "6" points with "unplanned" status in the "All" track
     And I should see "1" stories and "2" points with "unmet_reqs" status in the "All" track
 
-  @wip
   @javascript
   Scenario: User configures red flag labels, chosing new labels that aren't in any stories
     And I follow "edit labels"
