@@ -25,11 +25,20 @@ class SessionsController < ApplicationController
 
     logger.info "Sign in succeeded for " + username
     sign_in user
-    if session['return-to'].nil?
-      redirect_to projects_path
-    else
-      redirect_to session['return-to']
+
+    #go specifically to an individual project by typing in the exact url
+    if not session['return-to'].nil?
+     redirect_to session['return-to']
       session['return-to'] = nil
+
+    #return to the previous project you had open if you hadn't typed in the specific project url'
+    elsif not session['last-project-page'].nil?
+      redirect_to session['last-project-page']
+
+    #return to the projects page if all else fails
+    else
+      redirect_to projects_path
+
     end
 
   end
