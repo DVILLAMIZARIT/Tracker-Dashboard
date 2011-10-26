@@ -15,6 +15,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'simple_form'
 
 gem 'pivotal-tracker', '0.4.1', :git => "git://github.com/jsmestad/pivotal-tracker.git"
+gem 'chosen_rails'
 
 gem 'heroku'
 gem 'uglifier'

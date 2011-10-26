@@ -41,19 +41,27 @@ Feature: User sees a dashboard for a project
 
   Scenario: Projects have default red flags labels
     And I follow "edit labels"
-    Then I should see a text input with value "blocked"
-    And I should see a text input with value "added_midweek"
-    And I should see a text input with value "ship_this_week"
+    Then "blocked" should be selected for "project_settings[red_flags_blocked_label]"
+    And "added_midweek" should be selected for "project_settings[red_flags_unplanned_label]"
+    And "ship_this_week" should be selected for "project_settings[red_flags_unmet_label]"
 
   Scenario: User configures red flag labels
     And I follow "edit labels"
-    And I fill in "project_settings[red_flags_blocked_label]" with "label 1"
-    And I fill in "project_settings[red_flags_unplanned_label]" with "label 2"
-    And I fill in "project_settings[red_flags_unmet_label]" with "label 3"
+    And I select "label 1" from "project_settings[red_flags_blocked_label]"
+    And I select "label 2" from "project_settings[red_flags_unplanned_label]"
+    And I select "label 3" from "project_settings[red_flags_unmet_label]"
     And I press "Update"
     Then I should see "3" stories and "4" points with "blocked" status in the "All" track
     And I should see "3" stories and "6" points with "unplanned" status in the "All" track
     And I should see "1" stories and "2" points with "unmet_reqs" status in the "All" track
+
+  @javascript
+  Scenario: User configures red flag labels, chosing new labels that aren't in any stories
+    And I follow "edit labels"
+    And I select or add "label 123456" from "project_settings[red_flags_blocked_label]"
+    And I press "Update"
+    And I follow "edit labels"
+    Then "label 123456" should be selected for "project_settings[red_flags_blocked_label]"
 
   Scenario: User sees a link to snapshots
     And I follow "Snapshots"

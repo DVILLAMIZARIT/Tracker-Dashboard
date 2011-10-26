@@ -11,11 +11,11 @@
       %tr
         %td(style='vertical-align:top')
           = link_to project.name, project_path(project.id)
-        %td.project-goals{ :data => { :project_id =>"#{project.id}" } }
-          = image_tag "animated_loading.gif"
-          %font(color='white') Loading...
-        %td.project-red-flags{ :data => { :project_id =>"#{project.id}" } }
-          = image_tag "animated_loading.gif"
-          %font(color='white') Loading...
+        %td.project-goals.needs-ajax{ :data => { :project_id =>"#{project.id}" } }
+          = image_tag "animated_loading.gif", { :width => "16px", :height => "16px" }
+          %font(color='#808080') Loading...
+        %td.project-red-flags.needs-ajax{ :data => { :project_id =>"#{project.id}" } }
+          = image_tag "animated_loading.gif", { :width => "16px", :height => "16px" }
+          %font(color='#808080') Loading...
   
 %div.sourcecode(style='font-size:70%;')= link_to 'Source code', 'http://github.com/jimlindstrom/Tracker-Dashboard'
